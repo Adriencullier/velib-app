@@ -9,14 +9,11 @@ public struct NearestStationListView: View {
     
     public var body: some View {
         List {
-            ForEach(viewModel.nearestStations, id: \.id) { station in
-                HStack {
-                    Text(station.name)
-                    Spacer()
-                    Text(station.address)
-                }
+            ForEach(self.viewModel.nearestStations, id: \.id) { station in
+                StationCardView(station: station)
             }
         }
+        .listStyle(.plain)
         .task {
             try? await self.viewModel.onViewTask()
         }

@@ -1,17 +1,17 @@
 import Foundation
 import CoreNetworking
 
-struct AllTerminalsDataSourceImpl: AllTerminalsDataSource {
+actor AllTerminalsDataSourceImpl: AllTerminalsDataSource {
     private let client: GetHTTPClient
     
     init(client: GetHTTPClient) {
         self.client = client
     }
     
-    func fetchAllTerminals() async throws -> [TerminalDTO] {
+    func fetchAllTerminals() async throws -> [StationDTO] {
         let limit = 100
         let total = try await self.getTotal()
-        return try await withThrowingTaskGroup(of: TerminalResultDTO.self) { taskGroup in
+        return try await withThrowingTaskGroup(of: StationResultDTO.self) { taskGroup in
             var fetchedTerminalsCount = 0
             
             while fetchedTerminalsCount < total {
@@ -28,13 +28,13 @@ struct AllTerminalsDataSourceImpl: AllTerminalsDataSource {
                 taskGroup.addTask {
                     try await self.client.get(
                         from: url.absoluteString,
-                        responseType: TerminalResultDTO.self
+                        responseType: StationResultDTO.self
                     )
                 }
                 fetchedTerminalsCount += limit
             }
             
-            var terminals: [TerminalDTO] = []
+            var terminals: [StationDTO] = []
             for try await result in taskGroup {
                 terminals += result.results
             }
@@ -54,7 +54,7 @@ struct AllTerminalsDataSourceImpl: AllTerminalsDataSource {
         }
         let response = try await self.client.get(
             from: url.absoluteString,
-            responseType: TerminalResultDTO.self
+            responseType: StationResultDTO.self
         )
         return response.total
     }

@@ -1,3 +1,3 @@
-protocol AllTerminalsDataSource {
-    func fetchAllTerminals() async throws -> [TerminalDTO]
+protocol AllTerminalsDataSource: AnyObject {
+    func fetchAllTerminals() async throws -> [StationDTO]
 }

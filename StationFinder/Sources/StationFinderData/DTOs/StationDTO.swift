@@ -1,13 +1,13 @@
-struct StationDTO: Decodable, Sendable {
-    let stationCode: Int
-    let name: String
-    let city: String
+public struct StationDTO: Decodable, Sendable {
+    let stationCode: String
+    let name: String?
+    let city: String?
     let availableDocks: Int
     let mechanical: Int
-    let ebike: Int
-    let coordinates: CoordinatesDTO
+    let ebike: Int?
+    let coordinates: CoordinatesDTO?
     
-    init(stationCode: Int,
+    init(stationCode: String,
          name: String,
          city: String,
          availableDocks: Int,

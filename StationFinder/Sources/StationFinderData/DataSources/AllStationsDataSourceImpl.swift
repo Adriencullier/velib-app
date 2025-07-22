@@ -1,16 +1,17 @@
 import Foundation
 import CoreNetworking
 
-actor AllStationsDataSourceImpl: AllStationsDataSource {
-    private let client: GetHTTPClient
+public actor AllStationsDataSourceImpl: AllStationsDataSource {
+    weak var client: GetHTTPClient?
     
-    init(client: GetHTTPClient) {
-        self.client = client
-    }
+    public init() {}
     
-    func fetchAllStations() async throws -> [StationDTO] {
+    public func fetchAllStations() async throws -> [StationDTO] {
+        guard let client = self.client else {
+            fatalError("HTTP client is not set")
+        }
         let limit = 100
-        let total = try await self.getTotal()
+        let total = try await self.getTotal(with: client)
         return try await withThrowingTaskGroup(of: StationResultDTO.self) { taskGroup in
             var fetchedStationsCount = 0
             
@@ -26,7 +27,7 @@ actor AllStationsDataSourceImpl: AllStationsDataSource {
                     throw HTTPError.invalidURL
                 }
                 taskGroup.addTask {
-                    try await self.client.get(
+                    try await client.get(
                         from: url.absoluteString,
                         responseType: StationResultDTO.self
                     )
@@ -42,7 +43,11 @@ actor AllStationsDataSourceImpl: AllStationsDataSource {
         }
     }
     
-    private func getTotal() async throws -> Int {
+    public func setDependencies(_ client: GetHTTPClient) {
+        self.client = client
+    }
+    
+    private func getTotal(with client: GetHTTPClient) async throws -> Int {
         var uRLComponents = URLComponents(
             string: "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/records"
         )
@@ -52,7 +57,7 @@ actor AllStationsDataSourceImpl: AllStationsDataSource {
         guard let url = uRLComponents?.url else {
             throw HTTPError.invalidURL
         }
-        let response = try await self.client.get(
+        let response = try await client.get(
             from: url.absoluteString,
             responseType: StationResultDTO.self
         )

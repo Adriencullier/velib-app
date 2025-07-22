@@ -1,4 +1,5 @@
 import SwiftUI
+import StationFinderDomain
 import DependencyInjection
 
 @main
@@ -12,6 +13,20 @@ struct VelibApp: App {
                     await ModulesConfiguration.configureModules(
                         container: self.container
                     )
+                    let useCase = await DefaultGetNearestStations(
+                        getAllStationsRepository: container.resolve(type: GetAllStationsRepository.self)!
+                    )
+                    
+                        do {
+                            print(
+                            try await useCase.execute(
+                                longitude: 2.2966292757562434,
+                                latitude: 48.962740476048246
+                            )
+                            )
+                        } catch {
+                            print(error.localizedDescription)
+                        }
                 }
         }
     }

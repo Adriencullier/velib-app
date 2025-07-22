@@ -1,9 +1,9 @@
 import Foundation
 
-public struct DefaultHTTPClient: GetHTTPClient {
+public actor DefaultHTTPClient: GetHTTPClient {
     private let session: URLSession = .shared
     
-    public func get<T: Decodable>(from endpoint: String, responseType: T.Type) async throws -> T {
+    public func get<T: Decodable & Sendable>(from endpoint: String, responseType: T.Type) async throws -> T {
         guard let url = URL(string: "\(endpoint)") else {
             throw HTTPError.invalidURL
         }

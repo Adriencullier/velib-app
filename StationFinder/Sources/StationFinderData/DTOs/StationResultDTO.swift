@@ -3,7 +3,7 @@ struct StationResultDTO: Decodable, Sendable {
     let total: Int
     
     enum CodingKeys: String, CodingKey {
-        case results = "result"
-        case total = "total"
+        case results = "results"
+        case total = "total_count"
     }
 }

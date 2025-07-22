@@ -1,15 +1,20 @@
 import StationFinderDomain
 
 struct StationMapper {
-    static func map(from dto: StationDTO) -> Station {
+    static func map(from dto: StationDTO) -> Station? {
+        guard let name = dto.name,
+              let city = dto.city,
+              let coordinates = dto.coordinates else {
+            return nil
+        }
         return Station(
             id: dto.stationCode,
-            name: dto.name,
-            address: dto.city,
+            name: name,
+            address: city,
             availablePlaces: dto.availableDocks,
-            availableBikes: dto.ebike + dto.mechanical,
-            longitude: dto.coordinates.longitude,
-            latitude: dto.coordinates.latitude
+            availableBikes: (dto.ebike ?? 0) + dto.mechanical,
+            longitude: coordinates.longitude,
+            latitude: coordinates.latitude
         )
     }
 }

@@ -18,7 +18,10 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CoreNetworking"
+            name: "CoreNetworking",
+            dependencies: [
+                "DependencyInjection"
+            ]
         ),
         .testTarget(
             name: "CoreNetworkingTests",

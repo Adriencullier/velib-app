@@ -1,5 +1,5 @@
 public struct Station: Equatable, Sendable {
-    public let id: Int
+    public let id: String
     public let name: String
     public let address: String
     public let availablePlaces: Int
@@ -7,7 +7,7 @@ public struct Station: Equatable, Sendable {
     public let longitude: Double
     public let latitude: Double
     
-    public init(id: Int,
+    public init(id: String,
                 name: String,
                 address: String,
                 availablePlaces: Int,

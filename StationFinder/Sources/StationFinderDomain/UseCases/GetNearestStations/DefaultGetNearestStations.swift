@@ -16,8 +16,8 @@ public struct DefaultGetNearestStations: GetNearestStations {
     }
     
     private func sortStations(_ stations: [Station],
-                               lat: Double,
-                               long: Double) -> [Station] {
+                              lat: Double,
+                              long: Double) -> [Station] {
         let stationDistances = stations.map { station -> (Station, Double) in
             let latDiff = station.latitude - lat
             let longDiff = station.longitude - long

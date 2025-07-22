@@ -1,33 +1,40 @@
 import SwiftUI
-import StationFinderDomain
 import DependencyInjection
+import StationFinderDomain
+import StationFinderPresentation
 
 @main
 struct VelibApp: App {
     private let container: (Registry & Resolver) = DependencyContainer()
     
+    @State var nearestStationListViewModel: NearestStationListViewModel?
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .task {
-                    await ModulesConfiguration.configureModules(
-                        container: self.container
-                    )
-                    let useCase = await DefaultGetNearestStations(
-                        getAllStationsRepository: container.resolve(type: GetAllStationsRepository.self)!
+            Group {
+                if let nearestStationListViewModel = self.nearestStationListViewModel {
+                    NearestStationListView(
+                        viewModel: nearestStationListViewModel
                     )
                     
-                        do {
-                            print(
-                            try await useCase.execute(
-                                longitude: 2.2966292757562434,
-                                latitude: 48.962740476048246
-                            )
-                            )
-                        } catch {
-                            print(error.localizedDescription)
-                        }
+                } else {
+                    ProgressView()
                 }
+            }
+            .task {
+                await ModulesConfiguration.configureModules(
+                    container: self.container
+                )
+                await self.setupViewModel()
+            }
         }
+    }
+    
+    private func setupViewModel() async {
+        guard let repository: GetAllStationsRepository = await self.container.resolve(type: GetAllStationsRepository.self) else {
+            return
+        }
+        let getNearestStations: GetNearestStations = DefaultGetNearestStations(getAllStationsRepository: repository)
+        self.nearestStationListViewModel = NearestStationListViewModel(getNearestStations: getNearestStations)
     }
 }

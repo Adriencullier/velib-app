@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "StationFinder",
-    platforms: [.iOS(.v15)],
+    platforms: [.iOS(.v18)],
     products: [
         // Domain
         .library(

@@ -7,7 +7,7 @@ struct GetNearestStationsTests {
     )
     func executeReturnEmptyStations() async throws {
         // Given
-        var repository = MockGetAllStationsRepository()
+        let repository = MockGetAllStationsRepository()
         repository.stations = []
         let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
         // When
@@ -22,7 +22,7 @@ struct GetNearestStationsTests {
     )
     func executeReturnStations(numberOfStations: Int) async throws {
         // Given
-        var repository = MockGetAllStationsRepository()
+        let repository = MockGetAllStationsRepository()
         let expectedStations = Array(
             repeating: Station(
                 id: 1,
@@ -52,7 +52,7 @@ struct GetNearestStationsTests {
     )
     func executeThrowError() async throws {
         // Given
-        var repository = MockGetAllStationsRepository()
+        let repository = MockGetAllStationsRepository()
         repository.shouldThrowError = true
         let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
         // When
@@ -130,7 +130,7 @@ struct GetNearestStationsTests {
             stations[1], // Asnières Terminal (3rd closest)
             stations[4]  // Colombes Terminal (5th closest)
         ]
-        var repository = MockGetAllStationsRepository()
+        let repository = MockGetAllStationsRepository()
         repository.stations = stations
         let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
         // When

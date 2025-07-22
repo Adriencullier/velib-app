@@ -1,25 +1,25 @@
 import Foundation
 import CoreNetworking
 
-actor AllTerminalsDataSourceImpl: AllTerminalsDataSource {
+actor AllStationsDataSourceImpl: AllStationsDataSource {
     private let client: GetHTTPClient
     
     init(client: GetHTTPClient) {
         self.client = client
     }
     
-    func fetchAllTerminals() async throws -> [StationDTO] {
+    func fetchAllStations() async throws -> [StationDTO] {
         let limit = 100
         let total = try await self.getTotal()
         return try await withThrowingTaskGroup(of: StationResultDTO.self) { taskGroup in
-            var fetchedTerminalsCount = 0
+            var fetchedStationsCount = 0
             
-            while fetchedTerminalsCount < total {
+            while fetchedStationsCount < total {
                 var uRLComponents = URLComponents(
                     string: "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/velib-disponibilite-en-temps-reel/records"
                 )
                 uRLComponents?.queryItems = [
-                    URLQueryItem(name: "offset", value: "\(fetchedTerminalsCount)"),
+                    URLQueryItem(name: "offset", value: "\(fetchedStationsCount)"),
                     URLQueryItem(name: "limit", value: "\(limit)")
                 ]
                 guard let url = uRLComponents?.url else {
@@ -31,14 +31,14 @@ actor AllTerminalsDataSourceImpl: AllTerminalsDataSource {
                         responseType: StationResultDTO.self
                     )
                 }
-                fetchedTerminalsCount += limit
+                fetchedStationsCount += limit
             }
             
-            var terminals: [StationDTO] = []
+            var stations: [StationDTO] = []
             for try await result in taskGroup {
-                terminals += result.results
+                stations += result.results
             }
-            return terminals
+            return stations
         }
     }
     

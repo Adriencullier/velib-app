@@ -7,6 +7,22 @@ struct StationDTO: Decodable, Sendable {
     let ebike: Int
     let coordinates: CoordinatesDTO
     
+    init(stationCode: Int,
+         name: String,
+         city: String,
+         availableDocks: Int,
+         mechanical: Int,
+         ebike: Int,
+         coordinates: CoordinatesDTO) {
+        self.stationCode = stationCode
+        self.name = name
+        self.city = city
+        self.availableDocks = availableDocks
+        self.mechanical = mechanical
+        self.ebike = ebike
+        self.coordinates = coordinates
+    }
+    
     enum CodingKeys: String, CodingKey {
         case stationCode = "stationcode"
         case name = "name"

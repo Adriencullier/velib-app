@@ -19,14 +19,18 @@ struct StationCardView: View {
                 VStack {
                     Image(systemName: "bicycle")
                         .font(.title2)
+                        .foregroundStyle(.green)
                     Text("\(station.availableBikes)")
                         .font(.headline)
+                        .foregroundStyle(.green)
                 }
                 VStack {
                     Image(systemName: "p.circle")
                         .font(.title2)
+                        .foregroundStyle(.blue)
                     Text("\(station.availablePlaces)")
                         .font(.headline)
+                        .foregroundStyle(.blue)
                 }
             }
         }

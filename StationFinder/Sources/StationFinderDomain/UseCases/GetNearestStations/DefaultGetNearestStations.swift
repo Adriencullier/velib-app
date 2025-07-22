@@ -1,13 +1,12 @@
-public final class DefaultGetNearestStations: GetNearestStations {
-    weak var getAllStationsRepository: GetAllStationsRepository?
+public struct DefaultGetNearestStations: GetNearestStations {
+    private let getAllStationsRepository: GetAllStationsRepository
     
-    public init() {}
+    public init(getAllStationsRepository: GetAllStationsRepository) {
+        self.getAllStationsRepository = getAllStationsRepository
+    }
     
     public func execute(longitude: Double, latitude: Double) async throws -> [Station] {
-        guard let repository = self.getAllStationsRepository else {
-            fatalError("GetAllStationsRepository is not set")
-        }
-        let allStations = try await repository.getAllStations()
+        let allStations = try await getAllStationsRepository.getAllStations()
         let sortedStations = self.sortStations(
             allStations,
             lat: latitude,

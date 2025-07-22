@@ -1,4 +1,4 @@
-public struct Station: Equatable {
+public struct Station: Equatable, Sendable {
     public let id: Int
     public let name: String
     public let address: String

@@ -14,27 +14,8 @@
 		03B660622E2E2F07005FF105 /* StationFinderModuleConfiguration in Frameworks */ = {isa = PBXBuildFile; productRef = 03B660612E2E2F07005FF105 /* StationFinderModuleConfiguration */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		033C2DE12E28D6F8003E809C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 033C2DCA2E28D6F6003E809C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 033C2DD12E28D6F6003E809C;
-			remoteInfo = VelibApp;
-		};
-		033C2DEB2E28D6F8003E809C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 033C2DCA2E28D6F6003E809C /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 033C2DD12E28D6F6003E809C;
-			remoteInfo = VelibApp;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		033C2DD22E28D6F6003E809C /* VelibApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VelibApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		033C2DE02E28D6F8003E809C /* VelibAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VelibAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		033C2DEA2E28D6F8003E809C /* VelibAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VelibAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -58,20 +39,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		033C2DDD2E28D6F8003E809C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		033C2DE72E28D6F8003E809C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -88,8 +55,6 @@
 			isa = PBXGroup;
 			children = (
 				033C2DD22E28D6F6003E809C /* VelibApp.app */,
-				033C2DE02E28D6F8003E809C /* VelibAppTests.xctest */,
-				033C2DEA2E28D6F8003E809C /* VelibAppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,46 +96,6 @@
 			productReference = 033C2DD22E28D6F6003E809C /* VelibApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		033C2DDF2E28D6F8003E809C /* VelibAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 033C2DF72E28D6F8003E809C /* Build configuration list for PBXNativeTarget "VelibAppTests" */;
-			buildPhases = (
-				033C2DDC2E28D6F8003E809C /* Sources */,
-				033C2DDD2E28D6F8003E809C /* Frameworks */,
-				033C2DDE2E28D6F8003E809C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				033C2DE22E28D6F8003E809C /* PBXTargetDependency */,
-			);
-			name = VelibAppTests;
-			packageProductDependencies = (
-			);
-			productName = VelibAppTests;
-			productReference = 033C2DE02E28D6F8003E809C /* VelibAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		033C2DE92E28D6F8003E809C /* VelibAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 033C2DFA2E28D6F8003E809C /* Build configuration list for PBXNativeTarget "VelibAppUITests" */;
-			buildPhases = (
-				033C2DE62E28D6F8003E809C /* Sources */,
-				033C2DE72E28D6F8003E809C /* Frameworks */,
-				033C2DE82E28D6F8003E809C /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				033C2DEC2E28D6F8003E809C /* PBXTargetDependency */,
-			);
-			name = VelibAppUITests;
-			packageProductDependencies = (
-			);
-			productName = VelibAppUITests;
-			productReference = 033C2DEA2E28D6F8003E809C /* VelibAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -183,14 +108,6 @@
 				TargetAttributes = {
 					033C2DD12E28D6F6003E809C = {
 						CreatedOnToolsVersion = 16.4;
-					};
-					033C2DDF2E28D6F8003E809C = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = 033C2DD12E28D6F6003E809C;
-					};
-					033C2DE92E28D6F8003E809C = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = 033C2DD12E28D6F6003E809C;
 					};
 				};
 			};
@@ -209,28 +126,12 @@
 			projectRoot = "";
 			targets = (
 				033C2DD12E28D6F6003E809C /* VelibApp */,
-				033C2DDF2E28D6F8003E809C /* VelibAppTests */,
-				033C2DE92E28D6F8003E809C /* VelibAppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		033C2DD02E28D6F6003E809C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		033C2DDE2E28D6F8003E809C /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		033C2DE82E28D6F8003E809C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -247,34 +148,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		033C2DDC2E28D6F8003E809C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		033C2DE62E28D6F8003E809C /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		033C2DE22E28D6F8003E809C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 033C2DD12E28D6F6003E809C /* VelibApp */;
-			targetProxy = 033C2DE12E28D6F8003E809C /* PBXContainerItemProxy */;
-		};
-		033C2DEC2E28D6F8003E809C /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 033C2DD12E28D6F6003E809C /* VelibApp */;
-			targetProxy = 033C2DEB2E28D6F8003E809C /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		033C2DF22E28D6F8003E809C /* Debug */ = {
@@ -471,96 +345,6 @@
 			};
 			name = Release;
 		};
-		033C2DF82E28D6F8003E809C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = GN96LZ8U5K;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ac.VelibAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VelibApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VelibApp";
-				XROS_DEPLOYMENT_TARGET = 2.5;
-			};
-			name = Debug;
-		};
-		033C2DF92E28D6F8003E809C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = GN96LZ8U5K;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ac.VelibAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/VelibApp.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/VelibApp";
-				XROS_DEPLOYMENT_TARGET = 2.5;
-			};
-			name = Release;
-		};
-		033C2DFB2E28D6F8003E809C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = GN96LZ8U5K;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ac.VelibAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = VelibApp;
-				XROS_DEPLOYMENT_TARGET = 2.5;
-			};
-			name = Debug;
-		};
-		033C2DFC2E28D6F8003E809C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = GN96LZ8U5K;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ac.VelibAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx xros xrsimulator";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2,7";
-				TEST_TARGET_NAME = VelibApp;
-				XROS_DEPLOYMENT_TARGET = 2.5;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -578,24 +362,6 @@
 			buildConfigurations = (
 				033C2DF52E28D6F8003E809C /* Debug */,
 				033C2DF62E28D6F8003E809C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		033C2DF72E28D6F8003E809C /* Build configuration list for PBXNativeTarget "VelibAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				033C2DF82E28D6F8003E809C /* Debug */,
-				033C2DF92E28D6F8003E809C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		033C2DFA2E28D6F8003E809C /* Build configuration list for PBXNativeTarget "VelibAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				033C2DFB2E28D6F8003E809C /* Debug */,
-				033C2DFC2E28D6F8003E809C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

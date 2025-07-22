@@ -1,6 +1,7 @@
+import StationFinderDomain
 import Foundation
 
-struct MockGetAllStationsRepository: GetAllStationsRepository {
+class MockGetAllStationsRepository: GetAllStationsRepository {
     var stations: [Station] = []
     var shouldThrowError: Bool = false
     

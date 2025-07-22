@@ -1,5 +1,5 @@
 import Testing
-@testable import Domain
+@testable import StationFinderDomain
 
 struct GetNearestStationsTests {
     @Test(

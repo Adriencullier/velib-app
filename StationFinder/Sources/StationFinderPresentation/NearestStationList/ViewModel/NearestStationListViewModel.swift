@@ -38,7 +38,8 @@ public final class NearestStationListViewModel {
                 name: station.name,
                 city: station.address,
                 availablePlaces: station.availablePlaces,
-                availableBikes: station.availableBikes,
+                availableMechanicalBikes: station.availableMechanicalBikes,
+                availableEBikes: station.availableEBikes,
                 distance: calculateDistance(
                     userLatitude: self.userLatitude,
                     userLongitude: self.userLongitude,

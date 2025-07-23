@@ -3,6 +3,7 @@ struct StationModel: Identifiable {
     let name: String
     let city: String
     let availablePlaces: Int
-    let availableBikes: Int
+    let availableMechanicalBikes: Int
+    let availableEBikes: Int
     let distance: String
 }

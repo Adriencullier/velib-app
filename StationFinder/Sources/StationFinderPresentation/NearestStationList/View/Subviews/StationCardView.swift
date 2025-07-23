@@ -15,22 +15,32 @@ struct StationCardView: View {
             }
             Spacer()
             Divider()
-            HStack(spacing: 12) {
-                VStack {
-                    Image(systemName: "bicycle")
-                        .font(.title2)
-                        .foregroundStyle(.green)
-                    Text("\(station.availableBikes)")
-                        .font(.headline)
-                        .foregroundStyle(.green)
+            VStack(spacing: 4) {
+                HStack(spacing: 4) {
+                    VStack {
+                        Image(systemName: "bicycle")
+                            .font(.title3)
+                            .foregroundStyle(.green)
+                        Text("\(station.availableMechanicalBikes)")
+                            .font(.subheadline)
+                            .foregroundStyle(.green)
+                    }
+                    VStack {
+                        Image(systemName: "bicycle")
+                            .font(.title3)
+                            .foregroundStyle(.blue)
+                        Text("\(station.availableEBikes)")
+                            .font(.subheadline)
+                            .foregroundStyle(.blue)
+                    }
                 }
                 VStack {
                     Image(systemName: "p.circle")
-                        .font(.title2)
-                        .foregroundStyle(.blue)
+                        .font(.title3)
+                        .foregroundStyle(.yellow)
                     Text("\(station.availablePlaces)")
-                        .font(.headline)
-                        .foregroundStyle(.blue)
+                        .font(.subheadline)
+                        .foregroundStyle(.yellow)
                 }
             }
         }

@@ -12,7 +12,8 @@ struct StationMapper {
             name: name,
             address: city,
             availablePlaces: dto.availableDocks,
-            availableBikes: (dto.ebike ?? 0) + dto.mechanical,
+            availableMechanicalBikes: dto.mechanical,
+            availableEBikes: dto.ebike ?? 0,
             longitude: coordinates.longitude,
             latitude: coordinates.latitude
         )

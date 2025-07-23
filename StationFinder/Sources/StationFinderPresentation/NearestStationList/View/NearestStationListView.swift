@@ -11,6 +11,7 @@ public struct NearestStationListView: View {
         List {
             ForEach(self.viewModel.nearestStations, id: \.id) { station in
                 StationCardView(station: station)
+                    .padding(.vertical, 8)
             }
         }
         .refreshable(action: {

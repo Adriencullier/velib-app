@@ -31,10 +31,18 @@ struct VelibApp: App {
     }
     
     private func setupViewModel() async {
-        guard let repository: GetAllStationsRepository = await self.container.resolve(type: GetAllStationsRepository.self) else {
+        guard let getAllStationsRepository: GetAllStationsRepository = await self.container.resolve(type: GetAllStationsRepository.self) else {
             return
         }
-        let getNearestStations: GetNearestStations = DefaultGetNearestStations(getAllStationsRepository: repository)
-        self.nearestStationListViewModel = NearestStationListViewModel(getNearestStations: getNearestStations)
+        guard let getUserLocationRepository: GetUserLocationRepository = await self.container.resolve(type: GetUserLocationRepository.self) else {
+            return
+        }
+        let getNearestStations: GetNearestStations = DefaultGetNearestStations(getAllStationsRepository: getAllStationsRepository)
+        let getUserLocation: GetUserLocation = DefaultGetUserLocation(getUserLocationRepository: getUserLocationRepository)
+        
+        self.nearestStationListViewModel = NearestStationListViewModel(
+            getNearestStations: getNearestStations,
+            getUserLocation: getUserLocation
+        )
     }
 }

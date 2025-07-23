@@ -1,6 +1,7 @@
 import CoreNetworking
 import DependencyInjection
 import StationFinderDomain
+import StationFinderFramework
 import StationFinderData
 
 public struct StationFinderModuleConfiguration: ModuleConfiguring {
@@ -13,6 +14,14 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
             type: GetAllStationsRepository.self,
             service: GetAllStationsRepositoryImpl()
         )
+        await registery.register(
+            type: UserLocationDataSource.self,
+            service: UserLocationDataSourceImpl()
+        )
+        await registery.register(
+            type: GetUserLocationRepository.self,
+            service: GetUserLocationRepositoryImpl()
+        )
     }
     
     public static func start(with resolver: any DependencyInjection.Resolver) async {
@@ -24,8 +33,15 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
         }
         guard let getAllStationsRepository = await resolver.resolve(type: GetAllStationsRepository.self) else {
             fatalError("GetAllStationsRepository is not registered")
-        }        
+        }
+        guard let userLocationDataSource = await resolver.resolve(type: UserLocationDataSource.self) else {
+            fatalError("UserLocationDataSource is not registered")
+        }
+        guard let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self) else {
+            fatalError("GetUserLocationRepository is not registered")
+        }
         await (allStationsDataSource as? AllStationsDataSourceImpl)?.setDependencies(getHttpClient)
         await (getAllStationsRepository as? GetAllStationsRepositoryImpl)?.setDependencies(allStationsDataSource)
+        await (getUserLocationRepository as? GetUserLocationRepositoryImpl)?.setDependencies(userLocationDataSource)
     }
 }

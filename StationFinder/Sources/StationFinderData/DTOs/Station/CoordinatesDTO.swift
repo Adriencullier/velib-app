@@ -1,4 +1,4 @@
-struct CoordinatesDTO: Decodable, Sendable {
+public struct CoordinatesDTO: Decodable, Sendable {
     let longitude: Double
     let latitude: Double    
     

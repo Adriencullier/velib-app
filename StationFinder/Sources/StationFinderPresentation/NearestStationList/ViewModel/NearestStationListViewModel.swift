@@ -7,17 +7,22 @@ public final class NearestStationListViewModel {
     private(set) var nearestStations: [StationModel] = []
     
     private let getNearestStations: GetNearestStations
+    private let getUserLocation: GetUserLocation
+    
     private let userLongitude: Double = 2.2965630438180575
     private let userLatitude: Double = 48.9626867371301
     
-    public init(getNearestStations: GetNearestStations) {
+    public init(getNearestStations: GetNearestStations,
+                getUserLocation: GetUserLocation) {
         self.getNearestStations = getNearestStations
+        self.getUserLocation = getUserLocation
     }
     
     func onViewTask() async throws {
+        let userLocation = try await self.getUserLocation.execute()
         let stations = try await self.getNearestStations.execute(
-            longitude: self.userLongitude,
-            latitude: self.userLatitude
+            longitude: userLocation.longitude,
+            latitude: userLocation.latitude
         )
         self.nearestStations = stations.map { station in
             StationModel(

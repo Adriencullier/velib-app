@@ -1,0 +1,4 @@
+public protocol UserLocationDataSource: AnyObject, Sendable {
+    func fetchUserLocation() async throws -> UserLocationDTO?
+}
+    

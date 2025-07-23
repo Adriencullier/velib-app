@@ -1,4 +1,5 @@
 import Foundation
+import StationFinderData
 import CoreNetworking
 
 public actor AllStationsDataSourceImpl: AllStationsDataSource {

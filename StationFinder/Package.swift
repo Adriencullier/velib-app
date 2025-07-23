@@ -7,15 +7,20 @@ let package = Package(
     name: "StationFinder",
     platforms: [.iOS(.v18)],
     products: [
-        // Domain
+        // Framework
         .library(
-            name: "StationFinderDomain",
-            targets: ["StationFinderDomain"]
+            name: "StationFinderFramework",
+            targets: ["StationFinderFramework"]
         ),
         // Data
         .library(
             name: "StationFinderData",
             targets: ["StationFinderData"]
+        ),
+        // Domain
+        .library(
+            name: "StationFinderDomain",
+            targets: ["StationFinderDomain"]
         ),
         // Presentation
         .library(
@@ -35,19 +40,11 @@ let package = Package(
         )
     ],
     targets: [
-        // Domain
+        // Framework
         .target(
-            name: "StationFinderDomain"
-        ),
-        .testTarget(
-            name: "StationFinderDomainTests",
-            dependencies: ["StationFinderDomain"]
-        ),
-        // Data
-        .target(
-            name: "StationFinderData",
+            name: "StationFinderFramework",
             dependencies: [
-                "StationFinderDomain",
+                "StationFinderData",
                 .product(
                     name: "CoreNetworking",
                     package: "Shared"
@@ -55,8 +52,27 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "StationFinderFrameworkTests",
+            dependencies: ["StationFinderFramework"]
+        ),
+        // Data
+        .target(
+            name: "StationFinderData",
+            dependencies: [
+                "StationFinderDomain",
+            ]
+        ),
+        .testTarget(
             name: "StationFinderDataTests",
             dependencies: ["StationFinderData"]
+        ),
+        // Domain
+        .target(
+            name: "StationFinderDomain"
+        ),
+        .testTarget(
+            name: "StationFinderDomainTests",
+            dependencies: ["StationFinderDomain"]
         ),
         // Presentation
         .target(
@@ -75,6 +91,7 @@ let package = Package(
             dependencies: [
                 "StationFinderDomain",
                 "StationFinderData",
+                "StationFinderFramework",
                 .product(
                     name: "DependencyInjection",
                     package: "Shared"

@@ -13,6 +13,26 @@ public struct NearestStationListView: View {
                 StationCardView(station: station)
             }
         }
+        .refreshable(action: {
+            Task {
+                try await self.viewModel.onRefresh()
+            }
+        })
+        .navigationTitle("Nearest stations")
+        .navigationBarTitleDisplayMode(.large)
+        .toolbar(
+            content: {
+                ToolbarItem(
+                    placement: .primaryAction) {
+                        Button(
+                            "Refresh",
+                            systemImage: "arrow.counterclockwise") {
+                                Task {
+                                    try await self.viewModel.onRefresh()
+                                }
+                            }
+                    }
+        })
         .listStyle(.plain)
         .task {
             try? await self.viewModel.onViewTask()

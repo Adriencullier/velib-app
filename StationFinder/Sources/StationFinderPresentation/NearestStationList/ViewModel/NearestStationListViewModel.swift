@@ -19,6 +19,14 @@ public final class NearestStationListViewModel {
     }
     
     func onViewTask() async throws {
+        try await self.fetchNearestStations()
+    }
+    
+    func onRefresh() async throws {
+        try await self.fetchNearestStations()
+    }
+    
+    private func fetchNearestStations() async throws {
         let userLocation = try await self.getUserLocation.execute()
         let stations = try await self.getNearestStations.execute(
             longitude: userLocation.longitude,

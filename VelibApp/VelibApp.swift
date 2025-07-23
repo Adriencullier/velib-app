@@ -11,12 +11,11 @@ struct VelibApp: App {
     
     var body: some Scene {
         WindowGroup {
-            Group {
+            NavigationStack {
                 if let nearestStationListViewModel = self.nearestStationListViewModel {
                     NearestStationListView(
                         viewModel: nearestStationListViewModel
                     )
-                    
                 } else {
                     ProgressView()
                 }

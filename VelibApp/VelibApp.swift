@@ -1,6 +1,8 @@
 import SwiftUI
 import DependencyInjection
 import StationFinderDomain
+import StationFinderData
+import StationFinderFramework
 import StationFinderPresentation
 
 @main
@@ -38,10 +40,14 @@ struct VelibApp: App {
         }
         let getNearestStations: GetNearestStations = DefaultGetNearestStations(getAllStationsRepository: getAllStationsRepository)
         let getUserLocation: GetUserLocation = DefaultGetUserLocation(getUserLocationRepository: getUserLocationRepository)
+        let showRoute: ShowRoute = DefaultShowRoute(
+            routeLauncherService: RouteLauncherServiceImpl()
+        )
         
         self.nearestStationListViewModel = NearestStationListViewModel(
             getNearestStations: getNearestStations,
-            getUserLocation: getUserLocation
+            getUserLocation: getUserLocation,
+            showRoute: showRoute
         )
     }
 }

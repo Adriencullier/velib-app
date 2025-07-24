@@ -6,4 +6,6 @@ struct StationModel: Identifiable {
     let availableMechanicalBikes: Int
     let availableEBikes: Int
     let distance: String
+    let longitude: Double
+    let latitude: Double
 }

@@ -18,9 +18,22 @@
 		033C2DD22E28D6F6003E809C /* VelibApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VelibApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0308F2662E32145F000BF3FC /* Exceptions for "VelibApp" folder in "VelibApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 033C2DD12E28D6F6003E809C /* VelibApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		033C2DD42E28D6F6003E809C /* VelibApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0308F2662E32145F000BF3FC /* Exceptions for "VelibApp" folder in "VelibApp" target */,
+			);
 			path = VelibApp;
 			sourceTree = "<group>";
 		};
@@ -279,6 +292,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VelibApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show local content";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
@@ -320,6 +334,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = VelibApp/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = NSLocationWhenInUseUsageDescription;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to show local content";
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;

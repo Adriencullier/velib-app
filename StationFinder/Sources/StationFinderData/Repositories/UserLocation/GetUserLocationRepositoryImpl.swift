@@ -5,14 +5,14 @@ public actor GetUserLocationRepositoryImpl: GetUserLocationRepository {
     
     public init() {}
     
-    public func getUserLocation() async throws -> UserLocation {
+    public func getUserLocation() async throws -> Location {
         guard let userLocationDataSource = userLocationDataSource else {
             throw GetUserLocationRepositoryError.userLocationDataSourceNotSet
         }
         guard let userLocationDTO = try await userLocationDataSource.fetchUserLocation() else {
             throw GetUserLocationRepositoryError.userLocationNotAvailable
         }
-        return UserLocation(
+        return Location(
             latitude: userLocationDTO.latitude,
             longitude: userLocationDTO.longitude
         )

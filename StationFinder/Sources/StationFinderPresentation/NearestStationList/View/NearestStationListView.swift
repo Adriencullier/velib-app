@@ -10,8 +10,15 @@ public struct NearestStationListView: View {
     public var body: some View {
         List {
             ForEach(self.viewModel.nearestStations, id: \.id) { station in
-                StationCardView(station: station)
-                    .padding(.vertical, 8)
+                Button(action: {
+                    self.viewModel.onCardPress(station)
+                }) {
+                    StationCardView(station: station)
+                        .contentShape(Rectangle())
+                        .padding(.vertical, 8)
+                }
+                .buttonStyle(PlainButtonStyle())
+                .listRowSeparator(.hidden)
             }
         }
         .refreshable(action: {

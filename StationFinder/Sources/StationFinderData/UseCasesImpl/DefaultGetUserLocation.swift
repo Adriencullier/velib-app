@@ -1,3 +1,5 @@
+import StationFinderDomain
+
 public struct DefaultGetUserLocation: GetUserLocation {
     private let getUserLocationRepository: GetUserLocationRepository
     
@@ -5,7 +7,7 @@ public struct DefaultGetUserLocation: GetUserLocation {
         self.getUserLocationRepository = getUserLocationRepository
     }
     
-    public func execute() async throws -> UserLocation {
+    public func execute() async throws -> Location {
         return try await self.getUserLocationRepository.getUserLocation()
     }
 }

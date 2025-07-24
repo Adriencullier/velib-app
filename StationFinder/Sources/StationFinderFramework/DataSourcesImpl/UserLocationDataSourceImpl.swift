@@ -11,11 +11,11 @@ public final class UserLocationDataSourceImpl: NSObject, UserLocationDataSource 
         self.start()
     }
     
-    public func fetchUserLocation() async throws -> UserLocationDTO? {
+    public func fetchUserLocation() async throws -> LocationDTO? {
         guard let coordinates = self.location?.coordinate else {
             return nil
         }
-        return UserLocationDTO(
+        return LocationDTO(
             longitude: coordinates.longitude,
             latitude: coordinates.latitude
         )

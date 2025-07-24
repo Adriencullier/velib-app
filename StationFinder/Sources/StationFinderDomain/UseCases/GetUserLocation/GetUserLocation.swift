@@ -1,3 +1,3 @@
 public protocol GetUserLocation: Sendable {
-    func execute() async throws -> UserLocation
+    func execute() async throws -> Location
 }

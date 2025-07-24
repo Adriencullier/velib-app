@@ -1,4 +1,4 @@
-public struct UserLocationDTO: Sendable {
+public struct LocationDTO: Sendable {
     public let longitude: Double
     public let latitude: Double
 

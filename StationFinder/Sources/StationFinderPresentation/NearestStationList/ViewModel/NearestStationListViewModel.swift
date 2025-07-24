@@ -8,14 +8,17 @@ public final class NearestStationListViewModel {
     
     private let getNearestStations: GetNearestStations
     private let getUserLocation: GetUserLocation
+    private let showRoute: ShowRoute
     
     private let userLongitude: Double = 2.2965630438180575
     private let userLatitude: Double = 48.9626867371301
     
     public init(getNearestStations: GetNearestStations,
-                getUserLocation: GetUserLocation) {
+                getUserLocation: GetUserLocation,
+                showRoute: ShowRoute) {
         self.getNearestStations = getNearestStations
         self.getUserLocation = getUserLocation
+        self.showRoute = showRoute
     }
     
     func onViewTask() async throws {
@@ -24,6 +27,26 @@ public final class NearestStationListViewModel {
     
     func onRefresh() async throws {
         try await self.fetchNearestStations()
+    }
+    
+    func onCardPress(_ station: StationModel) {
+        Task {
+            do {
+                let userLocation = try await self.getUserLocation.execute()
+                try self.showRoute.execute(
+                    from: Location(
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude
+                    ),
+                    to: Location(
+                        latitude: station.latitude,
+                        longitude: station.longitude
+                    )
+                )
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
     }
     
     private func fetchNearestStations() async throws {
@@ -45,7 +68,9 @@ public final class NearestStationListViewModel {
                     userLongitude: self.userLongitude,
                     stationLatitude: station.latitude,
                     stationLongitude: station.longitude
-                )
+                ),
+                longitude: station.longitude,
+                latitude: station.latitude
             )
         }
     }

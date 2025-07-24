@@ -1,4 +1,5 @@
 import SwiftUI
+import Utilities
 import StationFinderDomain
 
 @MainActor
@@ -9,9 +10,6 @@ public final class NearestStationListViewModel {
     private let getNearestStations: GetNearestStations
     private let getUserLocation: GetUserLocation
     private let showRoute: ShowRoute
-    
-    private let userLongitude: Double = 2.2965630438180575
-    private let userLatitude: Double = 48.9626867371301
     
     public init(getNearestStations: GetNearestStations,
                 getUserLocation: GetUserLocation,
@@ -63,9 +61,9 @@ public final class NearestStationListViewModel {
                 availablePlaces: station.availablePlaces,
                 availableMechanicalBikes: station.availableMechanicalBikes,
                 availableEBikes: station.availableEBikes,
-                distance: calculateDistance(
-                    userLatitude: self.userLatitude,
-                    userLongitude: self.userLongitude,
+                distance: getDistanceStr(
+                    userLatitude: userLocation.latitude,
+                    userLongitude: userLocation.longitude,
                     stationLatitude: station.latitude,
                     stationLongitude: station.longitude
                 ),
@@ -75,25 +73,16 @@ public final class NearestStationListViewModel {
         }
     }
     
-    private func calculateDistance(
-        userLatitude: Double,
-        userLongitude: Double,
-        stationLatitude: Double,
-        stationLongitude: Double
-    ) -> String {
-        let earthRadius = 6371000.0 // Earth radius in meters
-        
-        let lat1 = userLatitude * .pi / 180
-        let lat2 = stationLatitude * .pi / 180
-        let deltaLat = (stationLatitude - userLatitude) * .pi / 180
-        let deltaLon = (stationLongitude - userLongitude) * .pi / 180
-        
-        let a = sin(deltaLat/2) * sin(deltaLat/2) +
-        cos(lat1) * cos(lat2) *
-        sin(deltaLon/2) * sin(deltaLon/2)
-        let c = 2 * atan2(sqrt(a), sqrt(1-a))
-        
-        let distance = Int(earthRadius * c)
+    private func getDistanceStr(userLatitude: Double,
+                                userLongitude: Double,
+                                stationLatitude: Double,
+                                stationLongitude: Double) -> String {
+        let distance = DistanceCalculator.calculateDistance(
+            startLatitude: userLatitude,
+            startLongitude: userLongitude,
+            destinationLatitude: stationLatitude,
+            destinationLongitude: stationLongitude
+        )
         if distance < 1000 {
             return "\(distance) m"
         } else {

@@ -60,6 +60,10 @@ let package = Package(
             name: "StationFinderData",
             dependencies: [
                 "StationFinderDomain",
+                .product(
+                    name: "Utilities",
+                    package: "Shared"
+                ),
             ]
         ),
         .testTarget(
@@ -94,6 +98,10 @@ let package = Package(
                 "StationFinderFramework",
                 .product(
                     name: "DependencyInjection",
+                    package: "Shared"
+                ),
+                .product(
+                    name: "Utilities",
                     package: "Shared"
                 ),
             ]

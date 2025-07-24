@@ -15,6 +15,10 @@ let package = Package(
             name: "DependencyInjection",
             targets: ["DependencyInjection"]
         ),
+        .library(
+            name: "Utilities",
+            targets: ["Utilities"]
+        ),
     ],
     targets: [
         .target(
@@ -33,6 +37,13 @@ let package = Package(
         .testTarget(
             name: "DependencyInjectionTests",
             dependencies: ["DependencyInjection"]
+        ),
+        .target(
+            name: "Utilities",
+        ),
+        .testTarget(
+            name: "UtilitiesTests",
+            dependencies: ["Utilities"]
         ),
     ]
 )

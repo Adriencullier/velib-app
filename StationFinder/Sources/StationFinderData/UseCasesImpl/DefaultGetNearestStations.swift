@@ -1,4 +1,5 @@
 import Foundation
+import Utilities
 import StationFinderDomain
 
 public struct DefaultGetNearestStations: GetNearestStations {
@@ -21,18 +22,13 @@ public struct DefaultGetNearestStations: GetNearestStations {
     private func sortStations(_ stations: [Station],
                               lat: Double,
                               long: Double) -> [Station] {
-        let stationDistances = stations.map { station -> (Station, Double) in
-            let earthRadius = 6371000.0 // Earth radius in meters
-            
-            let lat1 = lat * .pi / 180
-            let lat2 = station.latitude * .pi / 180
-            let deltaLat = (station.latitude - lat) * .pi / 180
-            let deltaLon = (station.longitude - long) * .pi / 180
-            
-            let a = sin(deltaLat/2) * sin(deltaLat/2) + cos(lat1) * cos(lat2) * sin(deltaLon/2) * sin(deltaLon/2)
-            let c = 2 * atan2(sqrt(a), sqrt(1-a))
-            
-            let distance = earthRadius * c
+        let stationDistances = stations.map { station -> (Station, Int) in
+            let distance = DistanceCalculator.calculateDistance(
+                startLatitude: station.latitude,
+                startLongitude: station.longitude,
+                destinationLatitude: lat,
+                destinationLongitude: long
+            )
             return (station, distance)
         }
         let nearestStations = stationDistances

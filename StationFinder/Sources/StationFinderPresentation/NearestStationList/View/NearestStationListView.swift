@@ -26,7 +26,7 @@ public struct NearestStationListView: View {
                 try await self.viewModel.onRefresh()
             }
         })
-        .navigationTitle("Nearest stations")
+        .navigationTitle("Velib' à proximité")
         .navigationBarTitleDisplayMode(.large)
         .toolbar(
             content: {

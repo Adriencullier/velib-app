@@ -1,6 +1,6 @@
-public struct StationResultDTO: Decodable, Sendable {
-    public let results: [StationDTO]
-    public let total: Int
+struct StationResultDTO: Decodable, Sendable {
+    let results: [StationDTO]
+    let total: Int
     
     enum CodingKeys: String, CodingKey {
         case results = "results"

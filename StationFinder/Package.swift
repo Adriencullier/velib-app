@@ -7,11 +7,6 @@ let package = Package(
     name: "StationFinder",
     platforms: [.iOS(.v18)],
     products: [
-        // Framework
-        .library(
-            name: "StationFinderFramework",
-            targets: ["StationFinderFramework"]
-        ),
         // Data
         .library(
             name: "StationFinderData",
@@ -40,28 +35,13 @@ let package = Package(
         )
     ],
     targets: [
-        // Framework
-        .target(
-            name: "StationFinderFramework",
-            dependencies: [
-                "StationFinderData",
-                .product(
-                    name: "CoreNetworking",
-                    package: "Shared"
-                ),
-            ]
-        ),
-        .testTarget(
-            name: "StationFinderFrameworkTests",
-            dependencies: ["StationFinderFramework"]
-        ),
         // Data
         .target(
             name: "StationFinderData",
             dependencies: [
                 "StationFinderDomain",
                 .product(
-                    name: "Utilities",
+                    name: "CoreNetworking",
                     package: "Shared"
                 ),
             ]
@@ -72,7 +52,13 @@ let package = Package(
         ),
         // Domain
         .target(
-            name: "StationFinderDomain"
+            name: "StationFinderDomain",
+            dependencies: [
+                .product(
+                    name: "Utilities",
+                    package: "Shared"
+                ),
+            ]
         ),
         .testTarget(
             name: "StationFinderDomainTests",
@@ -95,15 +81,10 @@ let package = Package(
             dependencies: [
                 "StationFinderDomain",
                 "StationFinderData",
-                "StationFinderFramework",
                 .product(
                     name: "DependencyInjection",
                     package: "Shared"
-                ),
-                .product(
-                    name: "Utilities",
-                    package: "Shared"
-                ),
+                )
             ]
         ),
         .testTarget(

@@ -1,5 +1,4 @@
 import CoreLocation
-import StationFinderData
 
 @MainActor
 public final class UserLocationDataSourceImpl: NSObject, UserLocationDataSource {

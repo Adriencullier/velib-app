@@ -1,23 +1,10 @@
 import UIKit
-import Foundation
-import StationFinderData
+import StationFinderDomain
 
-enum RouteLauncherServiceError: Error, LocalizedError {
-    case noRouteAppAvailable
-    
-    public var errorDescription: String? {
-        switch self {
-        case .noRouteAppAvailable:
-            return "No route app available to open."
-        }
-    }
-}
-
-
-public struct RouteLauncherServiceImpl: RouteLauncherService {
+public final class RouteLauncherServiceImpl: RouteLauncherService {
     public init() {}
     
-    public func showRoute(from: StationFinderData.LocationDTO, to: StationFinderData.LocationDTO) throws {
+    public func showRoute(from: Location, to: Location) throws {
         let googleRouteURL = URL(
             string: "comgooglemaps://?saddr=\(from.latitude),\(from.longitude)&daddr=\(to.latitude),\(to.longitude)&directionsmode=walking"
         )

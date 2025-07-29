@@ -8,7 +8,7 @@ struct GetAllStationsRepositoryTests {
     
     private lazy var repository: GetAllStationsRepository = {
         let repo = GetAllStationsRepositoryImpl()
-        repo.allTerminalsDataSource = self.mockDataSource
+        repo.allStationssDataSource = self.mockDataSource
         return repo
     }()
     

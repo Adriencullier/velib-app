@@ -1,6 +1,5 @@
 import Foundation
 import Utilities
-import StationFinderDomain
 
 public struct DefaultGetNearestStations: GetNearestStations {
     private let getAllStationsRepository: GetAllStationsRepository

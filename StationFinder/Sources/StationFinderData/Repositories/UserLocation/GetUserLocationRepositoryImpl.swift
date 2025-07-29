@@ -1,6 +1,7 @@
 import StationFinderDomain
+import DependencyInjection
 
-public actor GetUserLocationRepositoryImpl: GetUserLocationRepository {
+public actor GetUserLocationRepositoryImpl: GetUserLocationRepository, HasDependencies {
     private weak var userLocationDataSource: UserLocationDataSource?
     
     public init() {}
@@ -19,6 +20,17 @@ public actor GetUserLocationRepositoryImpl: GetUserLocationRepository {
     }
     
     public func setDependencies(_ userLocationDataSource: UserLocationDataSource) {
+        self.userLocationDataSource = userLocationDataSource
+    }
+    
+    nonisolated public func setDependencies(_ dependencies: [Any]) {
+        let userLocationDataSource = dependencies.first(where: { $0 is UserLocationDataSource }) as? UserLocationDataSource
+        Task {
+            await self.setDependencies(userLocationDataSource)
+        }
+    }
+    
+    private func setDependencies(_ userLocationDataSource: UserLocationDataSource?) {
         self.userLocationDataSource = userLocationDataSource
     }
 }

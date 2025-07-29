@@ -1,8 +1,8 @@
 import Foundation
-import StationFinderData
 import CoreNetworking
+import DependencyInjection
 
-public actor AllStationsDataSourceImpl: AllStationsDataSource {
+public actor AllStationsDataSourceImpl: AllStationsDataSource, HasDependencies {
     weak var client: GetHTTPClient?
     
     public init() {}
@@ -44,7 +44,14 @@ public actor AllStationsDataSourceImpl: AllStationsDataSource {
         }
     }
     
-    public func setDependencies(_ client: GetHTTPClient) {
+    nonisolated public func setDependencies(_ dependencies: [Any]) {
+        let client = dependencies.first as? GetHTTPClient
+        Task {
+            await self.setDependencies(client)
+        }
+    }
+    
+    private func setDependencies(_ client: GetHTTPClient?) {
         self.client = client
     }
     

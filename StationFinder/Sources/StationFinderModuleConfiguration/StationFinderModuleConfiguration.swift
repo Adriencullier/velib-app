@@ -1,47 +1,41 @@
 import CoreNetworking
 import DependencyInjection
 import StationFinderDomain
-import StationFinderFramework
 import StationFinderData
 
 public struct StationFinderModuleConfiguration: ModuleConfiguring {
-    public static func registerImplementations(in registery: DependencyInjection.Registry) async {
+    public static func registerImplementations(in registery: Registry) async {
         await registery.register(
             type: AllStationsDataSource.self,
-            service: AllStationsDataSourceImpl()
+            dependency: AllStationsDataSourceImpl()
         )
         await registery.register(
             type: GetAllStationsRepository.self,
-            service: GetAllStationsRepositoryImpl()
+            dependency: GetAllStationsRepositoryImpl()
         )
         await registery.register(
             type: UserLocationDataSource.self,
-            service: UserLocationDataSourceImpl()
+            dependency: UserLocationDataSourceImpl()
         )
         await registery.register(
             type: GetUserLocationRepository.self,
-            service: GetUserLocationRepositoryImpl()
+            dependency: GetUserLocationRepositoryImpl()
+        )
+        await registery.register(
+            type: RouteLauncherService.self,
+            dependency: RouteLauncherServiceImpl()
         )
     }
     
-    public static func start(with resolver: any DependencyInjection.Resolver) async {
-        guard let getHttpClient = await resolver.resolve(type: GetHTTPClient.self) else {
-            fatalError("GetHTTPClient is not registered")
-        }
-        guard let allStationsDataSource = await resolver.resolve(type: AllStationsDataSource.self) else {
-            fatalError("AllStationsDataSource is not registered")
-        }
-        guard let getAllStationsRepository = await resolver.resolve(type: GetAllStationsRepository.self) else {
-            fatalError("GetAllStationsRepository is not registered")
-        }
-        guard let userLocationDataSource = await resolver.resolve(type: UserLocationDataSource.self) else {
-            fatalError("UserLocationDataSource is not registered")
-        }
-        guard let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self) else {
-            fatalError("GetUserLocationRepository is not registered")
-        }
-        await (allStationsDataSource as? AllStationsDataSourceImpl)?.setDependencies(getHttpClient)
-        await (getAllStationsRepository as? GetAllStationsRepositoryImpl)?.setDependencies(allStationsDataSource)
-        await (getUserLocationRepository as? GetUserLocationRepositoryImpl)?.setDependencies(userLocationDataSource)
+    public static func start(with resolver: any Resolver) async {
+        let getHttpClient = await resolver.resolve(type: GetHTTPClient.self)
+        let allStationsDataSource = await resolver.resolve(type: AllStationsDataSource.self)
+        let getAllStationsRepository = await resolver.resolve(type: GetAllStationsRepository.self)
+        let userLocationDataSource = await resolver.resolve(type: UserLocationDataSource.self)
+        let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self)
+        
+        (allStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
+        (getAllStationsRepository as? HasDependencies)?.setDependencies([allStationsDataSource])
+        (getUserLocationRepository as? HasDependencies)?.setDependencies([userLocationDataSource])
     }
 }

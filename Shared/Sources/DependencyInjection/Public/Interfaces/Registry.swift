@@ -1,3 +1,3 @@
 public protocol Registry: Actor {
-    func register<T>(type: T.Type, service: Any)
+    func register<T>(type: T.Type, dependency: Any)
 }

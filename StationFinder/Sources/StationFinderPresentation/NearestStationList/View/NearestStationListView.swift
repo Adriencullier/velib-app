@@ -1,31 +1,37 @@
 import SwiftUI
 
-public struct NearestStationListView: View {
+struct NearestStationListView: View {
     private let viewModel: NearestStationListViewModel
     
-    public init(viewModel: NearestStationListViewModel) {
+    init(viewModel: NearestStationListViewModel) {
         self.viewModel = viewModel
     }
     
-    public var body: some View {
-        List {
-            ForEach(self.viewModel.nearestStations, id: \.id) { station in
-                Button(action: {
-                    self.viewModel.onCardPress(station)
-                }) {
-                    StationCardView(station: station)
-                        .contentShape(Rectangle())
-                        .padding(.vertical, 8)
+    var body: some View {
+        Group {
+            if self.viewModel.nearestStations.isEmpty {
+                ProgressView()
+            } else {
+                List {
+                    ForEach(self.viewModel.nearestStations, id: \.id) { station in
+                        Button(action: {
+                            self.viewModel.onCardPress(station)
+                        }) {
+                            StationCardView(station: station)
+                                .contentShape(Rectangle())
+                                .padding(.vertical, 8)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .listRowSeparator(.hidden)
+                    }
                 }
-                .buttonStyle(PlainButtonStyle())
-                .listRowSeparator(.hidden)
+                .refreshable(action: {
+                    Task {
+                        try await self.viewModel.onRefresh()
+                    }
+                })
             }
-        }
-        .refreshable(action: {
-            Task {
-                try await self.viewModel.onRefresh()
-            }
-        })
+        }        
         .navigationTitle("Velib' à proximité")
         .navigationBarTitleDisplayMode(.large)
         .toolbar(
@@ -40,7 +46,7 @@ public struct NearestStationListView: View {
                                 }
                             }
                     }
-        })
+            })
         .listStyle(.plain)
         .task {
             try? await self.viewModel.onViewTask()

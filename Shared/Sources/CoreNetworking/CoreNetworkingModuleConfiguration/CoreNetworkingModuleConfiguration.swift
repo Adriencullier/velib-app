@@ -5,7 +5,7 @@ public struct CoreNetworkingModuleConfiguration: ModuleConfiguring {
         let httpClient = DefaultHTTPClient()
         await registery.register(
             type: GetHTTPClient.self,
-            service: httpClient
+            dependency: httpClient
         )
     }
     

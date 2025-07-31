@@ -1,13 +1,18 @@
-import StationFinderDomain
+import DependencyInjection
 
-public struct DefaultGetUserLocation: GetUserLocation {
-    private let getUserLocationRepository: GetUserLocationRepository
+public actor DefaultGetUserLocation: GetUserLocation, HasDependencies {
+    weak var getUserLocationRepository: GetUserLocationRepository?
     
-    public init(getUserLocationRepository: GetUserLocationRepository) {
-        self.getUserLocationRepository = getUserLocationRepository
-    }
+    public init() {}
     
     public func execute() async throws -> Location {
-        return try await self.getUserLocationRepository.getUserLocation()
+        guard let getUserLocationRepository = self.getUserLocationRepository else {
+            fatalError("GetUserLocationRepository is not set")
+        }
+        return try await getUserLocationRepository.getUserLocation()
+    }
+    
+    public func setDependencies(_ dependencies: [Any]) {
+        self.getUserLocationRepository = dependencies.first(where: { $0 is GetUserLocationRepository }) as? GetUserLocationRepository
     }
 }

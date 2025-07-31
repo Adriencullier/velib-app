@@ -7,7 +7,14 @@ struct ModulesConfiguration {
         await withTaskGroup { taskGroup in
             ModulesBuilder.allCases.forEach { module in
                 taskGroup.addTask {
-                    await module.conf.registerImplementations(in: container)
+                    await module.conf.registerDependencies(in: container)
+                }
+            }
+        }
+        await withTaskGroup { taskGroup in
+            ModulesBuilder.allCases.forEach { module in
+                taskGroup.addTask {
+                    await module.conf.registerFactories(in: container)
                 }
             }
         }

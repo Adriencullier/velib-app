@@ -1,21 +1,24 @@
 import Foundation
+import DependencyInjection
 import Utilities
 
-public struct DefaultGetNearestStations: GetNearestStations {
-    private let getAllStationsRepository: GetAllStationsRepository
+public actor DefaultGetNearestStations: GetNearestStations, HasDependencies {
+    weak var getAllStationsRepository: GetAllStationsRepository?
     
-    public init(getAllStationsRepository: GetAllStationsRepository) {
-        self.getAllStationsRepository = getAllStationsRepository
-    }
+    public init() {}
     
     public func execute(longitude: Double, latitude: Double) async throws -> [Station] {
-        let allStations = try await getAllStationsRepository.getAllStations()
+        let allStations = try await getAllStationsRepository?.getAllStations() ?? []
         let sortedStations = self.sortStations(
             allStations,
             lat: latitude,
             long: longitude
         )
         return Array(sortedStations.prefix(5))
+    }
+    
+    public func setDependencies(_ dependencies: [Any]) {
+        self.getAllStationsRepository = dependencies.first(where: { $0 is GetAllStationsRepository }) as? GetAllStationsRepository
     }
     
     private func sortStations(_ stations: [Station],

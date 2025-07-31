@@ -151,22 +151,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3E9C79B4-328A-4AC6-872C-1C84D8500C15"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
-            landmarkName = "onViewTask()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "661783EC-C7B3-466B-A8BB-7CC511E04E0A"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -178,6 +162,50 @@
             endingLineNumber = "52"
             landmarkName = "body"
             landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "661783EC-C7B3-466B-A8BB-7CC511E04E0A - 1414f2449194c191"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #3 @Sendable () async -&gt; () in StationFinderPresentation.NearestStationListView.body.getter : some"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/View/NearestStationListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52">
+               </Location>
+               <Location
+                  uuid = "661783EC-C7B3-466B-A8BB-7CC511E04E0A - fd7a4f06e77b0df2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #3 @Sendable () async -&gt; () in StationFinderPresentation.NearestStationListView.body.getter : some"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/View/NearestStationListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "53"
+                  endingLineNumber = "53">
+               </Location>
+               <Location
+                  uuid = "661783EC-C7B3-466B-A8BB-7CC511E04E0A - f2d51da90052ebec"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #3 @Sendable () async -&gt; () in StationFinderPresentation.NearestStationListView.body.getter : some"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/View/NearestStationListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -194,6 +222,36 @@
             endingLineNumber = "56"
             landmarkName = "fetchNearestStations()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F7E5EB87-997F-4A67-91BE-0445E261EE66 - 7e73b81f9ff15a79"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(5) suspend resume partial function for StationFinderPresentation.NearestStationListViewModel.fetchNearestStations() async throws -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56">
+               </Location>
+               <Location
+                  uuid = "F7E5EB87-997F-4A67-91BE-0445E261EE66 - 2e3f4b23b1aa788e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (StationFinderDomain.Station) -&gt; StationFinderPresentation.StationModel in StationFinderPresentation.NearestStationListViewModel.fetchNearestStations() async throws -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -226,6 +284,172 @@
             endingLineNumber = "34"
             landmarkName = "locationManager(_:didUpdateLocations:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2FBEA531-77E9-4A20-82C2-B03DE83FAEA7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StationFinder/Sources/StationFinderModuleConfiguration/StationFinderModuleConfiguration.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "registerFactories(in:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2FBEA531-77E9-4A20-82C2-B03DE83FAEA7 - e4fcdc427f9c8409"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for static StationFinderModuleConfiguration.StationFinderModuleConfiguration.registerFactories(in: DependencyInjection.Registry) async -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderModuleConfiguration/StationFinderModuleConfiguration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+               <Location
+                  uuid = "2FBEA531-77E9-4A20-82C2-B03DE83FAEA7 - b3953c0d703b25c1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (DependencyInjection.Resolver) async -&gt; StationFinderPresentation.NearestStationListViewModel in static StationFinderModuleConfiguration.StationFinderModuleConfiguration.registerFactories(in: DependencyInjection.Registry) async -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderModuleConfiguration/StationFinderModuleConfiguration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+               <Location
+                  uuid = "2FBEA531-77E9-4A20-82C2-B03DE83FAEA7 - f5678c57440f5af0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 (DependencyInjection.Resolver) async -&gt; StationFinderPresentation.NearestStationListViewModel in static StationFinderModuleConfiguration.StationFinderModuleConfiguration.registerFactories(in: DependencyInjection.Registry) async -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderModuleConfiguration/StationFinderModuleConfiguration.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3BCFCC0D-18FC-4FF9-9A33-D30A3C9DD77E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "onCardPress(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3BCFCC0D-18FC-4FF9-9A33-D30A3C9DD77E - b48b1882c9e645fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(6) suspend resume partial function for closure #1 () async -&gt; () in StationFinderPresentation.NearestStationListViewModel.onCardPress(StationFinderPresentation.StationModel) -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45">
+               </Location>
+               <Location
+                  uuid = "3BCFCC0D-18FC-4FF9-9A33-D30A3C9DD77E - bfcaa95abc83e3fa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #1 () async -&gt; () in StationFinderPresentation.NearestStationListViewModel.onCardPress(StationFinderPresentation.StationModel) -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "45"
+                  endingLineNumber = "45">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4118DB33-E143-469A-95AE-E12440289986"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "onCardPress(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4118DB33-E143-469A-95AE-E12440289986 - 94c96e78600c651d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 () async -&gt; () in StationFinderPresentation.NearestStationListViewModel.onCardPress(StationFinderPresentation.StationModel) -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34">
+               </Location>
+               <Location
+                  uuid = "4118DB33-E143-469A-95AE-E12440289986 - 9e08bf33d3290712"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 () async -&gt; () in StationFinderPresentation.NearestStationListViewModel.onCardPress(StationFinderPresentation.StationModel) -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34">
+               </Location>
+               <Location
+                  uuid = "4118DB33-E143-469A-95AE-E12440289986 - bfcaa95abc83ed11"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(7) suspend resume partial function for closure #1 () async -&gt; () in StationFinderPresentation.NearestStationListViewModel.onCardPress(StationFinderPresentation.StationModel) -&gt; ()"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

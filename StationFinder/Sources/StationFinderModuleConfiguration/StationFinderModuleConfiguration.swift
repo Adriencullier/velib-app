@@ -1,10 +1,10 @@
 import CoreNetworking
 import DependencyInjection
-import StationFinderDomain
-import StationFinderData
+import StationFinderDomain; import StationFinderData; import StationFinderPresentation
+
 
 public struct StationFinderModuleConfiguration: ModuleConfiguring {
-    public static func registerImplementations(in registery: Registry) async {
+    public static func registerDependencies(in registery: Registry) async {
         await registery.register(
             type: AllStationsDataSource.self,
             dependency: AllStationsDataSourceImpl()
@@ -25,6 +25,28 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
             type: RouteLauncherService.self,
             dependency: RouteLauncherServiceImpl()
         )
+        await registery.register(
+            type: GetNearestStations.self,
+            dependency: DefaultGetNearestStations()
+        )
+        await registery.register(
+            type: GetUserLocation.self,
+            dependency: DefaultGetUserLocation()
+        )
+        await registery.register(
+            type: ShowRoute.self,
+            dependency: DefaultShowRoute()
+        )
+    }
+    
+    public static func registerFactories(in registery: Registry) async {
+        await registery.registerFactory(type: NearestStationListViewModel.self) { resolver in
+            await NearestStationListViewModel(
+                getNearestStations: resolver.resolve(type: GetNearestStations.self),
+                getUserLocation: resolver.resolve(type: GetUserLocation.self),
+                showRoute: resolver.resolve(type: ShowRoute.self)
+            )
+        }
     }
     
     public static func start(with resolver: any Resolver) async {
@@ -33,9 +55,13 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
         let getAllStationsRepository = await resolver.resolve(type: GetAllStationsRepository.self)
         let userLocationDataSource = await resolver.resolve(type: UserLocationDataSource.self)
         let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self)
+        let getNearestStations = await resolver.resolve(type: GetNearestStations.self)
+        let getUserLocation = await resolver.resolve(type: GetUserLocation.self)
         
-        (allStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
-        (getAllStationsRepository as? HasDependencies)?.setDependencies([allStationsDataSource])
-        (getUserLocationRepository as? HasDependencies)?.setDependencies([userLocationDataSource])
+        await (allStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
+        await (getAllStationsRepository as? HasDependencies)?.setDependencies([allStationsDataSource])
+        await (getUserLocationRepository as? HasDependencies)?.setDependencies([userLocationDataSource])
+        await (getNearestStations as? HasDependencies)?.setDependencies([getAllStationsRepository])
+        await (getUserLocation as? HasDependencies)?.setDependencies([getUserLocationRepository])
     }
 }

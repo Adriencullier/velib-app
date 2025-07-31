@@ -1,3 +1,3 @@
-public protocol HasDependencies where Self: AnyObject & Sendable {
+public protocol HasDependencies where Self: Actor {
     func setDependencies(_ dependencies: [Any])
 }

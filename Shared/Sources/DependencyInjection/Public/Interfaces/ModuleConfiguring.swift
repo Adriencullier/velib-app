@@ -1,4 +1,5 @@
 public protocol ModuleConfiguring {
-    static func registerImplementations(in registery: Registry) async
-    static func start(with resolver: Resolver) async 
+    static func registerDependencies(in registery: Registry) async
+    static func registerFactories(in registery: Registry) async
+    static func start(with resolver: Resolver) async
 }

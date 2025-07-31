@@ -80,6 +80,7 @@ let package = Package(
             name: "StationFinderModuleConfiguration",
             dependencies: [
                 "StationFinderDomain",
+                "StationFinderPresentation",
                 "StationFinderData",
                 .product(
                     name: "DependencyInjection",

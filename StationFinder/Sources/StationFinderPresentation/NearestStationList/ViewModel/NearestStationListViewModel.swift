@@ -4,16 +4,16 @@ import StationFinderDomain
 
 @MainActor
 @Observable
-final class NearestStationListViewModel {
+public final class NearestStationListViewModel {
     private(set) var nearestStations: [StationModel] = []
     
     private let getNearestStations: GetNearestStations
     private let getUserLocation: GetUserLocation
     private let showRoute: ShowRoute
     
-    init(getNearestStations: GetNearestStations,
-         getUserLocation: GetUserLocation,
-         showRoute: ShowRoute) {
+    public init(getNearestStations: GetNearestStations,
+                getUserLocation: GetUserLocation,
+                showRoute: ShowRoute) {
         self.getNearestStations = getNearestStations
         self.getUserLocation = getUserLocation
         self.showRoute = showRoute
@@ -31,7 +31,7 @@ final class NearestStationListViewModel {
         Task {
             do {
                 let userLocation = try await self.getUserLocation.execute()
-                try self.showRoute.execute(
+                try await self.showRoute.execute(
                     from: Location(
                         latitude: userLocation.latitude,
                         longitude: userLocation.longitude

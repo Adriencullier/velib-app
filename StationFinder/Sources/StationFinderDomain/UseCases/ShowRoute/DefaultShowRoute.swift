@@ -1,14 +1,20 @@
-public struct DefaultShowRoute: ShowRoute {
-    private let routeLauncherService: RouteLauncherService
+import DependencyInjection
+
+public actor DefaultShowRoute: ShowRoute, HasDependencies {
+    weak var routeLauncherService: RouteLauncherService?
     
-    public init(routeLauncherService: RouteLauncherService) {
-        self.routeLauncherService = routeLauncherService
-    }
+    public init() {}
     
     public func execute(from start: Location, to destination: Location) throws {
-        try self.routeLauncherService.showRoute(
-            from: start,
-            to: destination,
-        )
+        Task { @MainActor in
+            try await self.routeLauncherService?.showRoute(
+                from: start,
+                to: destination,
+            )
+        }
+    }
+    
+    public func setDependencies(_ dependencies: [Any]) {
+        self.routeLauncherService = dependencies.first(where: { $0 is RouteLauncherService }) as? RouteLauncherService
     }
 }

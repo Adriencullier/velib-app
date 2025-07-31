@@ -58,6 +58,10 @@ let package = Package(
                     name: "Utilities",
                     package: "Shared"
                 ),
+                .product(
+                    name: "DependencyInjection",
+                    package: "Shared"
+                ),
             ]
         ),
         .testTarget(

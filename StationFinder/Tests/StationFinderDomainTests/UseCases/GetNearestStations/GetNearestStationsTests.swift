@@ -8,8 +8,9 @@ struct GetNearestStationsTests {
     func executeReturnEmptyStations() async throws {
         // Given
         let repository = MockGetAllStationsRepository()
-        repository.stations = []
-        let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
+        await repository.setStations([])
+        let useCase = DefaultGetNearestStations()
+        await useCase.setDependencies([repository])
         // When
         let stations = try await useCase.execute(longitude: 1.1, latitude: 1.2)
         // Then
@@ -25,18 +26,20 @@ struct GetNearestStationsTests {
         let repository = MockGetAllStationsRepository()
         let expectedStations = Array(
             repeating: Station(
-                id: 1,
+                id: "1",
                 name: "1st Station",
                 address: "123 Main St",
                 availablePlaces: 0,
-                availableBikes: 3,
+                availableMechanicalBikes: 2,
+                availableEBikes: 3,
                 longitude: 1.0,
                 latitude: 1.2
             ),
             count: numberOfStations
         )
-        repository.stations = expectedStations
-        let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
+        await repository.setStations(expectedStations)
+        let useCase = DefaultGetNearestStations()
+        await useCase.setDependencies([repository])
         // When
         let stations = try await useCase.execute(longitude: 1.1, latitude: 1.2)
         // Then
@@ -53,8 +56,9 @@ struct GetNearestStationsTests {
     func executeThrowError() async throws {
         // Given
         let repository = MockGetAllStationsRepository()
-        repository.shouldThrowError = true
-        let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
+        await repository.shouldThrow(true)
+        let useCase = DefaultGetNearestStations()
+        await useCase.setDependencies([repository])
         // When
         // Then
         await #expect(throws: Error.self, performing: {
@@ -69,56 +73,62 @@ struct GetNearestStationsTests {
         // Given
         let stations = [
             Station(
-                id: 1,
+                id: "1",
                 name: "Saint-Denis Terminal",
                 address: "12 Avenue de Paris",
                 availablePlaces: 4,
-                availableBikes: 2,
+                availableMechanicalBikes: 22,
+                availableEBikes: 2,
                 longitude: 2.295734,
                 latitude: 48.963421
             ),
             Station(
-                id: 3,
+                id: "3",
                 name: "Asnières Terminal",
                 address: "8 Boulevard Victor Hugo",
                 availablePlaces: 3,
-                availableBikes: 3,
+                availableMechanicalBikes: 10,
+                availableEBikes: 3,
                 longitude: 2.293418,
                 latitude: 48.960129
             ),
             Station(
-                id: 6,
+                id: "6",
                 name: "Villeneuve Terminal",
                 address: "72 Avenue Jean Jaurès",
                 availablePlaces: 6,
-                availableBikes: 1,
+                availableMechanicalBikes: 1,
+                availableEBikes: 1,
                 longitude: 2.304128,
                 latitude: 48.958921
             ),
             Station(
-                id: 4,
+                id: "4",
                 name: "Argenteuil Terminal",
                 address: "23 Quai de Seine",
                 availablePlaces: 0,
-                availableBikes: 7,
+                availableMechanicalBikes: 0,
+                availableEBikes: 7,
                 longitude: 2.299856,
                 latitude: 48.965204
             ),
             Station(
-                id: 5,
+                id: "5",
                 name: "Colombes Terminal",
                 address: "16 Rue des Entrepreneurs",
                 availablePlaces: 1,
-                availableBikes: 4,
+                availableMechanicalBikes: 0,
+                availableEBikes: 4,
                 longitude: 2.290187,
                 latitude: 48.967354
             ),
             Station(
-                id: 2,
+                id: "2",
                 name: "Gennevilliers Terminal",
                 address: "45 Rue du Port",
                 availablePlaces: 2,
-                availableBikes: 5,
+                availableMechanicalBikes: 3,
+                availableEBikes: 5,
                 longitude: 2.298012,
                 latitude: 48.961543
             )
@@ -131,8 +141,9 @@ struct GetNearestStationsTests {
             stations[4]  // Colombes Terminal (5th closest)
         ]
         let repository = MockGetAllStationsRepository()
-        repository.stations = stations
-        let useCase = DefaultGetNearestStations(getAllStationsRepository: repository)
+        await repository.setStations(stations)
+        let useCase = DefaultGetNearestStations()
+        await useCase.setDependencies([repository])
         // When
         let result = try await useCase.execute(longitude: 2.296634, latitude: 48.962786)
         // Then

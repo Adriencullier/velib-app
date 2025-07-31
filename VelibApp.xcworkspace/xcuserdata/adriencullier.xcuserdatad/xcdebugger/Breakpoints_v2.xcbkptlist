@@ -136,7 +136,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2A20B6D7-81A1-4C89-8107-89A6A53B68BE"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
@@ -212,7 +212,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "F7E5EB87-997F-4A67-91BE-0445E261EE66"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
@@ -222,59 +222,13 @@
             endingLineNumber = "56"
             landmarkName = "fetchNearestStations()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F7E5EB87-997F-4A67-91BE-0445E261EE66 - 7e73b81f9ff15a79"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "(5) suspend resume partial function for StationFinderPresentation.NearestStationListViewModel.fetchNearestStations() async throws -&gt; ()"
-                  moduleName = "VelibApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56">
-               </Location>
-               <Location
-                  uuid = "F7E5EB87-997F-4A67-91BE-0445E261EE66 - 2e3f4b23b1aa788e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (StationFinderDomain.Station) -&gt; StationFinderPresentation.StationModel in StationFinderPresentation.NearestStationListViewModel.fetchNearestStations() async throws -&gt; ()"
-                  moduleName = "VelibApp.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/ViewModel/NearestStationListViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "56"
-                  endingLineNumber = "56">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "DB7A22F0-B489-4B73-8465-ACC4D51671A2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "StationFinder/Sources/StationFinderData/DataSources/UserLocation/UserLocationDataSourceImpl.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "start()"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "EABB3D1D-283B-4B05-9928-4406D0960863"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "StationFinder/Sources/StationFinderData/DataSources/UserLocation/UserLocationDataSourceImpl.swift"
@@ -448,6 +402,52 @@
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "34"
                   endingLineNumber = "34">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "68EB3D0F-4A53-4D60-9D58-0C114BDB2C5D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationList/View/NearestStationListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "68EB3D0F-4A53-4D60-9D58-0C114BDB2C5D - 447e56ce81d2cbf0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.ProgressView&lt;SwiftUI.EmptyView, SwiftUI.EmptyView&gt;, &lt;&lt;opaque return type of SwiftUI.View.refreshable(action: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0&gt; in StationFinderPresentation.NearestStationListView.body.getter : some"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/View/NearestStationListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15">
+               </Location>
+               <Location
+                  uuid = "68EB3D0F-4A53-4D60-9D58-0C114BDB2C5D - 85cdca733f882c1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; SwiftUI.ForEach&lt;Swift.Array&lt;StationFinderPresentation.StationModel&gt;, Swift.String, &lt;&lt;opaque return type of SwiftUI.View.listRowSeparator(_: SwiftUI.Visibility, edges: SwiftUI.VerticalEdge.Set) -&gt; some&gt;&gt;.0&gt; in closure #1 () -&gt; SwiftUI._ConditionalContent&lt;SwiftUI.ProgressView&lt;SwiftUI.EmptyView, SwiftUI.EmptyView&gt;, &lt;&lt;opaque return type of SwiftUI.View.refreshable(action: @Sendable () async -&gt; ()) -&gt; some&gt;&gt;.0&gt; in StationFinderPresentation.NearestStationListView.body.getter : some"
+                  moduleName = "VelibApp.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/adriencullier/Desktop/Side%20Project/velib-app/StationFinder/Sources/StationFinderPresentation/NearestStationList/View/NearestStationListView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "15"
+                  endingLineNumber = "15">
                </Location>
             </Locations>
          </BreakpointContent>

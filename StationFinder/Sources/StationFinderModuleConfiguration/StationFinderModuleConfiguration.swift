@@ -34,6 +34,10 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
             dependency: DefaultGetUserLocation()
         )
         await registery.register(
+            type: RouteLauncherService.self,
+            dependency: RouteLauncherServiceImpl()
+        )
+        await registery.register(
             type: ShowRoute.self,
             dependency: DefaultShowRoute()
         )
@@ -57,11 +61,14 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
         let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self)
         let getNearestStations = await resolver.resolve(type: GetNearestStations.self)
         let getUserLocation = await resolver.resolve(type: GetUserLocation.self)
+        let routeLauncherService = await resolver.resolve(type: RouteLauncherService.self)
+        let showRoute = await resolver.resolve(type: ShowRoute.self)
         
         await (allStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
         await (getAllStationsRepository as? HasDependencies)?.setDependencies([allStationsDataSource])
         await (getUserLocationRepository as? HasDependencies)?.setDependencies([userLocationDataSource])
         await (getNearestStations as? HasDependencies)?.setDependencies([getAllStationsRepository])
         await (getUserLocation as? HasDependencies)?.setDependencies([getUserLocationRepository])
+        await (showRoute as? HasDependencies)?.setDependencies([routeLauncherService])
     }
 }

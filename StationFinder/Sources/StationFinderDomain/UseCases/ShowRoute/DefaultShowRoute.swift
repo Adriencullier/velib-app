@@ -6,8 +6,11 @@ public actor DefaultShowRoute: ShowRoute, HasDependencies {
     public init() {}
     
     public func execute(from start: Location, to destination: Location) throws {
+        guard let routeLauncherService = routeLauncherService else {
+            fatalError("RouteLauncherService is not set. Call setDependencies before using this method.")
+        }
         Task { @MainActor in
-            try await self.routeLauncherService?.showRoute(
+            try routeLauncherService.showRoute(
                 from: start,
                 to: destination,
             )

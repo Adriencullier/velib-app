@@ -7,9 +7,9 @@ import StationFinderDomain
 public final class NearestStationListViewModel {
     private(set) var nearestStations: [StationModel] = []
     
-    private let getNearestStations: GetNearestStations
-    private let getUserLocation: GetUserLocation
-    private let showRoute: ShowRoute
+    private unowned let getNearestStations: GetNearestStations
+    private unowned let getUserLocation: GetUserLocation
+    private unowned let showRoute: ShowRoute
     
     public init(getNearestStations: GetNearestStations,
                 getUserLocation: GetUserLocation,

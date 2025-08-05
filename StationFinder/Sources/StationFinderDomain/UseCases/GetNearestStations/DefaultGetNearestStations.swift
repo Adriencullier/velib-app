@@ -14,7 +14,7 @@ public actor DefaultGetNearestStations: GetNearestStations, HasDependencies {
             lat: latitude,
             long: longitude
         )
-        return Array(sortedStations.prefix(5))
+        return Array(sortedStations.prefix(50))
     }
     
     public func setDependencies(_ dependencies: [Any]) {

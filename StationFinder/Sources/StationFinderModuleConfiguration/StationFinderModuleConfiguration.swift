@@ -1,6 +1,8 @@
 import CoreNetworking
 import DependencyInjection
-import StationFinderDomain; import StationFinderData; import StationFinderPresentation
+import StationFinderDomain
+import StationFinderData
+import StationFinderPresentation
 
 
 public struct StationFinderModuleConfiguration: ModuleConfiguring {
@@ -44,8 +46,8 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
     }
     
     public static func registerFactories(in registery: Registry) async {
-        await registery.registerFactory(type: NearestStationListViewModel.self) { resolver in
-            await NearestStationListViewModel(
+        await registery.registerFactory(type: NearestStationMapViewModel.self) { resolver in
+            await NearestStationMapViewModel(
                 getNearestStations: resolver.resolve(type: GetNearestStations.self),
                 getUserLocation: resolver.resolve(type: GetUserLocation.self),
                 showRoute: resolver.resolve(type: ShowRoute.self)

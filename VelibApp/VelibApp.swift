@@ -28,7 +28,7 @@ struct VelibApp: App {
     
     private func setupRootView() async {
         self.nearestListView = AnyView(
-            await NearestStationListBuilder.build(self.container)
+            await NearestStationMapBuilder.build(self.container)
         )
     }
 }

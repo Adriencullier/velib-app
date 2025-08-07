@@ -2,18 +2,18 @@ import Foundation
 import CoreNetworking
 import DependencyInjection
 
-public actor AllStationsDataSourceImpl: AllVelibStationsDataSource, HasDependencies {
+public actor AllParisStationsDataSourceImpl: AllParisStationsDataSource, HasDependencies {
     weak var client: GetHTTPClient?
     
     public init() {}
     
-    public func fetchAllStations() async throws -> [VelibStationDTO] {
+    public func fetchAllStations() async throws -> [ParisStationDTO] {
         guard let client = self.client else {
             fatalError("HTTP client is not set")
         }
         let limit = 100
         let total = try await self.getTotal(with: client)
-        return try await withThrowingTaskGroup(of: VelibStationResultDTO.self) { taskGroup in
+        return try await withThrowingTaskGroup(of: ParisStationResultDTO.self) { taskGroup in
             var fetchedStationsCount = 0
             
             while fetchedStationsCount < total {
@@ -30,13 +30,13 @@ public actor AllStationsDataSourceImpl: AllVelibStationsDataSource, HasDependenc
                 taskGroup.addTask {
                     try await client.get(
                         from: url.absoluteString,
-                        responseType: VelibStationResultDTO.self
+                        responseType: ParisStationResultDTO.self
                     )
                 }
                 fetchedStationsCount += limit
             }
             
-            var stations: [VelibStationDTO] = []
+            var stations: [ParisStationDTO] = []
             for try await result in taskGroup {
                 stations += result.results
             }
@@ -67,7 +67,7 @@ public actor AllStationsDataSourceImpl: AllVelibStationsDataSource, HasDependenc
         }
         let response = try await client.get(
             from: url.absoluteString,
-            responseType: VelibStationResultDTO.self
+            responseType: ParisStationResultDTO.self
         )
         return response.total
     }

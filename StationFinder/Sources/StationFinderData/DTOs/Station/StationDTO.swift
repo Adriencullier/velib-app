@@ -1,4 +1,4 @@
-public struct VelibStationDTO: Decodable, Sendable {
+public struct ParisStationDTO: Decodable, Sendable {
     let stationCode: String
     let name: String?
     let city: String?

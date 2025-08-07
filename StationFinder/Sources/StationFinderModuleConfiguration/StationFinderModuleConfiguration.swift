@@ -8,8 +8,8 @@ import StationFinderPresentation
 public struct StationFinderModuleConfiguration: ModuleConfiguring {
     public static func registerDependencies(in registery: Registry) async {
         await registery.register(
-            type: AllVelibStationsDataSource.self,
-            dependency: AllStationsDataSourceImpl()
+            type: AllParisStationsDataSource.self,
+            dependency: AllParisStationsDataSourceImpl()
         )
         await registery.register(
             type: GetAllStationsRepository.self,
@@ -62,7 +62,7 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
     
     public static func start(with resolver: any Resolver) async {
         let getHttpClient = await resolver.resolve(type: GetHTTPClient.self)
-        let allStationsDataSource = await resolver.resolve(type: AllVelibStationsDataSource.self)
+        let allStationsDataSource = await resolver.resolve(type: AllParisStationsDataSource.self)
         let getAllStationsRepository = await resolver.resolve(type: GetAllStationsRepository.self)
         let userLocationDataSource = await resolver.resolve(type: UserLocationDataSource.self)
         let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self)

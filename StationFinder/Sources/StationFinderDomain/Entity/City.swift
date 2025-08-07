@@ -1,14 +1,7 @@
 public enum City: CaseIterable, Sendable {
     case paris
     
-    static let defaultCity: City = .paris
-    
-    public var veloName: String {
-        switch self {
-        case .paris:
-            return "Velib"
-        }
-    }
+    public static let defaultCity: City = .paris
     
     public var centerLocation: Location {
         switch self {

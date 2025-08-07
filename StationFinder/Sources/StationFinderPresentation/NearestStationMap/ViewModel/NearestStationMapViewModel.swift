@@ -10,17 +10,17 @@ public final class NearestStationMapViewModel {
     private unowned let getCity: GetCity
     private unowned let showRoute: ShowRoute
 
-    private var fetchStationsTask: Task<Void, Never>? = nil
+    var position: MapCameraPosition = .camera(.init(.init()))
     
+    private(set) var stations: [MapStationModel] = []
+    private(set) var bounds: MapCameraBounds?
+    private(set) var veloName: String = "Vélos"
+    
+    private var fetchStationsTask: Task<Void, Never>? = nil
     private var currentLocation: CLLocationCoordinate2D? = nil
     
-    var stations: [MapStationModel] = []
-
-    var position: MapCameraPosition = .camera(.init(.init()))
-    var bounds: MapCameraBounds?
-    
     private let minimumDistance: CLLocationDistance = 500
-    
+        
     public init(getNearestStations: GetNearestStations,
                 getUserLocation: GetUserLocation,
                 getCity: GetCity,
@@ -30,7 +30,14 @@ public final class NearestStationMapViewModel {
         self.getCity = getCity
         self.showRoute = showRoute
         
-        self.setInitialPosition()
+        Task {
+            let initialUserLocation = try? await self.getUserLocation.execute()
+            let city = await self.getCity.execute(userLocation: initialUserLocation)
+
+            self.veloName = city.veloName
+            self.setInitialPosition(for: initialUserLocation, city: city)
+            self.setBounds(city: city)
+        }
     }
     
     func onPositionChange(_ coordinates: CLLocationCoordinate2D) {
@@ -38,46 +45,45 @@ public final class NearestStationMapViewModel {
         self.fetchNearesStations()
     }
     
-    private func setInitialPosition() {
-        Task {
-            let userLocation = try? await self.getUserLocation.execute()
-            let city = await self.getCity.execute(userLocation: userLocation)
-            if let userLocation = userLocation {
-                self.position = .camera(
-                    MapCamera(
-                        centerCoordinate: .init(
-                            latitude: userLocation.latitude,
-                            longitude: userLocation.longitude
-                        ),
-                        distance: 3000
-                    )
+    private func setInitialPosition(for userLocation: Location?, city: City) {
+        if let userLocation = userLocation {
+            self.position = .camera(
+                MapCamera(
+                    centerCoordinate: .init(
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude
+                    ),
+                    distance: 3000
                 )
-            } else {
-                self.position = .camera(
-                    MapCamera(
-                        centerCoordinate: .init(
-                            latitude: city.centerLocation.latitude,
-                            longitude: city.centerLocation.longitude
-                        ),
-                        distance: 3000
-                    )
-                )
-            }
-            self.bounds = MapCameraBounds(
-                centerCoordinateBounds: MKCoordinateRegion(
-                    center: CLLocationCoordinate2D(
+            )
+        } else {
+            self.position = .camera(
+                MapCamera(
+                    centerCoordinate: .init(
                         latitude: city.centerLocation.latitude,
                         longitude: city.centerLocation.longitude
                     ),
-                    span: MKCoordinateSpan(
-                        latitudeDelta: 0.3,
-                        longitudeDelta: 0.3
-                    )
-                ),
-                minimumDistance: self.minimumDistance,
-                maximumDistance: Double(city.radius)
+                    distance: 3000
+                )
             )
         }
+    }
+    
+    private func setBounds(city: City) {
+        self.bounds = MapCameraBounds(
+            centerCoordinateBounds: MKCoordinateRegion(
+                center: CLLocationCoordinate2D(
+                    latitude: city.centerLocation.latitude,
+                    longitude: city.centerLocation.longitude
+                ),
+                span: MKCoordinateSpan(
+                    latitudeDelta: 0.3,
+                    longitudeDelta: 0.3
+                )
+            ),
+            minimumDistance: self.minimumDistance,
+            maximumDistance: Double(city.radius)
+        )
     }
     
     private func fetchNearesStations() {

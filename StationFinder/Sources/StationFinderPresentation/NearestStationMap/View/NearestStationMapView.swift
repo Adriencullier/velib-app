@@ -58,7 +58,10 @@ struct NearestStationMapView: View {
                 mapScale = distance
             }
         }
-        .navigationTitle("Vélos à proximité")
+        .navigationTitle(
+            "Stations "
+            + self.viewModel.veloName
+        )
         .toolbar(
             content: {
                 ToolbarItem(

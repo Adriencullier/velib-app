@@ -2,6 +2,7 @@ import Utilities
 
 public actor DefaultGetCity: GetCity {
     public init() {}
+    
     public func execute(userLocation: Location?) -> City {
         guard let userLocation else {
             return .defaultCity

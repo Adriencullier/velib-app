@@ -10,7 +10,6 @@ struct StationAnnotationViewModel {
     var stationCapacity: Int {
         return self.station.availablePlaces
         + self.allAvailableBikes
-        + self.station.availablePlaces
     }
     
     init(station: MapStationModel,

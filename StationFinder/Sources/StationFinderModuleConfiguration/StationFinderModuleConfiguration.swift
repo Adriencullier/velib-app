@@ -12,6 +12,10 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
             dependency: AllParisStationsDataSourceImpl()
         )
         await registery.register(
+            type: AllLilleStationsDataSource.self,
+            dependency: AllLilleStationsDataSourceImpl()
+        )
+        await registery.register(
             type: GetAllStationsRepository.self,
             dependency: GetAllStationsRepositoryImpl()
         )
@@ -62,7 +66,8 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
     
     public static func start(with resolver: any Resolver) async {
         let getHttpClient = await resolver.resolve(type: GetHTTPClient.self)
-        let allStationsDataSource = await resolver.resolve(type: AllParisStationsDataSource.self)
+        let allParisStationsDataSource = await resolver.resolve(type: AllParisStationsDataSource.self)
+        let allLilleStationsDataSource = await resolver.resolve(type: AllLilleStationsDataSource.self)
         let getAllStationsRepository = await resolver.resolve(type: GetAllStationsRepository.self)
         let userLocationDataSource = await resolver.resolve(type: UserLocationDataSource.self)
         let getUserLocationRepository = await resolver.resolve(type: GetUserLocationRepository.self)
@@ -71,8 +76,14 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
         let routeLauncherService = await resolver.resolve(type: RouteLauncherService.self)
         let showRoute = await resolver.resolve(type: ShowRoute.self)
         
-        await (allStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
-        await (getAllStationsRepository as? HasDependencies)?.setDependencies([allStationsDataSource])
+        await (allParisStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
+        await (allLilleStationsDataSource as? HasDependencies)?.setDependencies([getHttpClient])
+        await (getAllStationsRepository as? HasDependencies)?.setDependencies(
+            [
+                allParisStationsDataSource,
+                allLilleStationsDataSource
+            ]
+        )
         await (getUserLocationRepository as? HasDependencies)?.setDependencies([userLocationDataSource])
         await (getNearestStations as? HasDependencies)?.setDependencies([getAllStationsRepository])
         await (getUserLocation as? HasDependencies)?.setDependencies([getUserLocationRepository])

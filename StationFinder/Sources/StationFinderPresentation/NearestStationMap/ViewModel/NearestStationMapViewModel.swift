@@ -47,6 +47,10 @@ public final class NearestStationMapViewModel {
         self.fetchNearesStations()
     }
     
+    func onEnterForeground() {
+        self.fetchNearesStations()
+    }
+    
     private func setInitialPosition(for userLocation: Location?, city: City) {
         if let userLocation = userLocation {
             self.position = .camera(

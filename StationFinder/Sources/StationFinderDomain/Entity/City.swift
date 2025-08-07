@@ -1,7 +1,8 @@
 public enum City: CaseIterable, Sendable {
     case paris
+    case lille
     
-    public static let defaultCity: City = .paris
+    public static let defaultCity: City = .lille
     
     public var centerLocation: Location {
         switch self {
@@ -10,13 +11,20 @@ public enum City: CaseIterable, Sendable {
                 latitude: 48.8566,
                 longitude: 2.3522
             )
+        case .lille:
+            return Location(
+                latitude: 50.6278,
+                longitude: 3.0583
+            )
         }
     }
     
     public var radius: Int {
         switch self {
         case .paris:
-            return 10000
+            return 15000
+        case .lille:
+            return 15000
         }
     }
 }

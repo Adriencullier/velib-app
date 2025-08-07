@@ -18,4 +18,26 @@ struct StationMapper {
             latitude: coordinates.latitude
         )
     }
+    
+    static func map(from dto: LilleStationDTO) -> Station? {
+        guard let name = dto.name,
+              let city = dto.city,
+              let lat = dto.latitude,
+              let long = dto.longitude,
+              let id = dto.stationCode,
+              let availPlaces = dto.availableDocks,
+              let availBikes = dto.mechanical else {
+            return nil
+        }
+        return Station(
+            id: id,
+            name: name,
+            address: city,
+            availablePlaces: availPlaces,
+            availableMechanicalBikes: availBikes,
+            availableEBikes: 0,
+            longitude: long,
+            latitude: lat
+        )
+    }
 }

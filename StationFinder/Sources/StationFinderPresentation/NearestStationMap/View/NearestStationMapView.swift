@@ -4,6 +4,8 @@ import MapKit
 
 
 struct NearestStationMapView: View {
+    @Environment(\.scenePhase) private var scenePhase
+    
     @Bindable private var viewModel: NearestStationMapViewModel
     
     @State private var mapScale: Double = 0
@@ -62,6 +64,11 @@ struct NearestStationMapView: View {
             "Stations "
             + self.viewModel.veloName
         )
+        .onChange(of: scenePhase) { newPhase in
+            if newPhase == .active {
+                self.viewModel.onEnterForeground()
+            }
+        }
         .toolbar(
             content: {
                 ToolbarItem(

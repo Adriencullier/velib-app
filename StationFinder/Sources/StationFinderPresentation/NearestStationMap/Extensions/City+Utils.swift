@@ -5,6 +5,8 @@ extension City {
         switch self {
         case .paris:
             return "Velib"
+        case .lille:
+            return "V'Lille"
         }
     }        
 }

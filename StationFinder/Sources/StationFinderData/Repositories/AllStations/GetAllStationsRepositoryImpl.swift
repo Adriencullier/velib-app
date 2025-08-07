@@ -2,32 +2,37 @@ import StationFinderDomain
 import DependencyInjection
 
 public actor GetAllStationsRepositoryImpl: GetAllStationsRepository, HasDependencies {
-    weak var allStationssDataSource: AllStationsDataSource?
+    weak var allVelibStationsDataSource: AllVelibStationsDataSource?
     
     public init() {}
     
-    public func getAllStations() async throws -> [Station] {
-        guard let allTerminalsDataSource = self.allStationssDataSource else {
-            fatalError("AllTerminalsDataSource is not set")
-        }
-        let terminalsDTO = try await allTerminalsDataSource.fetchAllStations()
-        return terminalsDTO.compactMap {
-            StationMapper.map(from: $0)
+    public func getAllStations(for city: City) async throws -> [Station] {
+        switch city {
+        case .paris:
+            guard let allVelibStationsDataSource = self.allVelibStationsDataSource else {
+                fatalError("AllTerminalsDataSource is not set")
+            }
+            let velibStationDTO = try await allVelibStationsDataSource.fetchAllStations()
+            return velibStationDTO.compactMap {
+                StationMapper.map(from: $0)
+            }
         }
     }
     
-    public func setDependencies(_ allTerminalsDataSource: AllStationsDataSource) {
-        self.allStationssDataSource = allTerminalsDataSource
+    public func setDependencies(_ allVelibStationsDataSource: AllVelibStationsDataSource) {
+        self.allVelibStationsDataSource = allVelibStationsDataSource
     }
     
     nonisolated public func setDependencies(_ dependencies: [Any]) {
-        let allStationsDataSource = dependencies.first(where: { $0 is AllStationsDataSource }) as? AllStationsDataSource
+        let allVelibStationsDataSource = dependencies.first(where: {
+            $0 is AllVelibStationsDataSource
+        }) as? AllVelibStationsDataSource
         Task {
-            await self.setDependencies(allStationsDataSource)
+            await self.setDependencies(allVelibStationsDataSource)
         }
     }
     
-    private func setDependencies(_ allStationsDataSource: AllStationsDataSource?) {
-        self.allStationssDataSource = allStationsDataSource
+    private func setDependencies(_ allVelibStationsDataSource: AllVelibStationsDataSource?) {
+        self.allVelibStationsDataSource = allVelibStationsDataSource
     }
 }

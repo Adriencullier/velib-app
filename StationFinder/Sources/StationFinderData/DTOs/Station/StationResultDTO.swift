@@ -1,5 +1,5 @@
-struct StationResultDTO: Decodable, Sendable {
-    let results: [StationDTO]
+struct VelibStationResultDTO: Decodable, Sendable {
+    let results: [VelibStationDTO]
     let total: Int
     
     enum CodingKeys: String, CodingKey {

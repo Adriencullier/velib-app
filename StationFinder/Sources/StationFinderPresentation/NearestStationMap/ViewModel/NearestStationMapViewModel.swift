@@ -18,6 +18,7 @@ public final class NearestStationMapViewModel {
     
     private var fetchStationsTask: Task<Void, Never>? = nil
     private var currentLocation: CLLocationCoordinate2D? = nil
+    private var city: City = .defaultCity
     
     private let minimumDistance: CLLocationDistance = 500
         
@@ -34,6 +35,7 @@ public final class NearestStationMapViewModel {
             let initialUserLocation = try? await self.getUserLocation.execute()
             let city = await self.getCity.execute(userLocation: initialUserLocation)
 
+            self.city = city
             self.veloName = city.veloName
             self.setInitialPosition(for: initialUserLocation, city: city)
             self.setBounds(city: city)
@@ -92,7 +94,11 @@ public final class NearestStationMapViewModel {
         self.fetchStationsTask = Task {
             guard !Task.isCancelled else { return }
             do {
-                let stations = try await self.getNearestStations.execute(longitude: coordinates.longitude, latitude: coordinates.latitude)
+                let stations = try await self.getNearestStations.execute(
+                    longitude: coordinates.longitude,
+                    latitude: coordinates.latitude,
+                    city: self.city
+                )
                 self.stations = stations.map(
                     { station in
                         MapStationModel(

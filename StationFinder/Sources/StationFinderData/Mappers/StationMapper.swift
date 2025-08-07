@@ -1,7 +1,7 @@
 import StationFinderDomain
 
 struct StationMapper {
-    static func map(from dto: StationDTO) -> Station? {
+    static func map(from dto: VelibStationDTO) -> Station? {
         guard let name = dto.name,
               let city = dto.city,
               let coordinates = dto.coordinates else {

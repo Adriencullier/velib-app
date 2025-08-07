@@ -7,8 +7,10 @@ public actor DefaultGetNearestStations: GetNearestStations, HasDependencies {
     
     public init() {}
     
-    public func execute(longitude: Double, latitude: Double) async throws -> [Station] {
-        let allStations = try await getAllStationsRepository?.getAllStations() ?? []
+    public func execute(longitude: Double,
+                        latitude: Double,
+                        city: City) async throws -> [Station] {
+        let allStations = try await getAllStationsRepository?.getAllStations(for: city) ?? []
         let sortedStations = self.sortStations(
             allStations,
             lat: latitude,

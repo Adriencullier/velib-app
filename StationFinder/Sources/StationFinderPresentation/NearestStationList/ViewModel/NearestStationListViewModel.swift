@@ -48,29 +48,29 @@ public final class NearestStationListViewModel {
     }
     
     private func fetchNearestStations() async throws {
-        let userLocation = try await self.getUserLocation.execute()
-        let stations = try await self.getNearestStations.execute(
-            longitude: userLocation.longitude,
-            latitude: userLocation.latitude
-        )
-        self.nearestStations = stations.map { station in
-            StationModel(
-                id: station.id,
-                name: station.name,
-                city: station.address,
-                availablePlaces: station.availablePlaces,
-                availableMechanicalBikes: station.availableMechanicalBikes,
-                availableEBikes: station.availableEBikes,
-                distance: getDistanceStr(
-                    userLatitude: userLocation.latitude,
-                    userLongitude: userLocation.longitude,
-                    stationLatitude: station.latitude,
-                    stationLongitude: station.longitude
-                ),
-                longitude: station.longitude,
-                latitude: station.latitude
-            )
-        }
+//        let userLocation = try await self.getUserLocation.execute()
+//        let stations = try await self.getNearestStations.execute(
+//            longitude: userLocation.longitude,
+//            latitude: userLocation.latitude
+//        )
+//        self.nearestStations = stations.map { station in
+//            StationModel(
+//                id: station.id,
+//                name: station.name,
+//                city: station.address,
+//                availablePlaces: station.availablePlaces,
+//                availableMechanicalBikes: station.availableMechanicalBikes,
+//                availableEBikes: station.availableEBikes,
+//                distance: getDistanceStr(
+//                    userLatitude: userLocation.latitude,
+//                    userLongitude: userLocation.longitude,
+//                    stationLatitude: station.latitude,
+//                    stationLongitude: station.longitude
+//                ),
+//                longitude: station.longitude,
+//                latitude: station.latitude
+//            )
+//        }
     }
     
     private func getDistanceStr(userLatitude: Double,

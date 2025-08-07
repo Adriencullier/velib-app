@@ -1,3 +1,3 @@
-public protocol AllStationsDataSource: Actor {
-    func fetchAllStations() async throws -> [StationDTO]
+public protocol AllVelibStationsDataSource: Actor {
+    func fetchAllStations() async throws -> [VelibStationDTO]
 }

@@ -1,3 +1,3 @@
 public protocol GetAllStationsRepository: Actor {
-    func getAllStations() async throws -> [Station]
+    func getAllStations(for city: City) async throws -> [Station]
 }

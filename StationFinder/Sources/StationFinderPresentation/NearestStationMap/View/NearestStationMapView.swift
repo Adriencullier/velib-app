@@ -14,7 +14,10 @@ struct NearestStationMapView: View {
     }
     
     var body: some View {
-        Map(position: self.$viewModel.position, bounds: self.viewModel.bounds) {
+        Map(
+            position: self.$viewModel.position,
+            bounds: self.viewModel.bounds
+        ) {
             ForEach(self.viewModel.stations) { station in
                 Annotation("",
                            coordinate: .init(latitude: station.latitude, longitude: station.longitude)) {
@@ -39,6 +42,10 @@ struct NearestStationMapView: View {
             }
             UserAnnotation()
         }
+        .mapControls({
+            MapUserLocationButton()
+            MapCompass()
+        })
         .onMapCameraChange { context in
             viewModel.onPositionChange(context.camera.centerCoordinate)
             self.mapScale = context.camera.distance
@@ -51,6 +58,20 @@ struct NearestStationMapView: View {
                 mapScale = distance
             }
         }
+        .navigationTitle("Vélos à proximité")
+        .toolbar(
+            content: {
+                ToolbarItem(
+                    placement: .primaryAction) {
+                        Button(
+                            "Refresh",
+                            systemImage: "arrow.counterclockwise") {
+                                Task {
+                                    try await self.viewModel.onRefresh()
+                                }
+                            }
+                    }
+            })
     }
     
     private func selectStation(_ station: MapStationModel?) {

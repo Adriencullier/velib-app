@@ -43,6 +43,10 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
             type: ShowRoute.self,
             dependency: DefaultShowRoute()
         )
+        await registery.register(
+            type: GetCity.self,
+            dependency: DefaultGetCity()
+        )
     }
     
     public static func registerFactories(in registery: Registry) async {
@@ -50,6 +54,7 @@ public struct StationFinderModuleConfiguration: ModuleConfiguring {
             await NearestStationMapViewModel(
                 getNearestStations: resolver.resolve(type: GetNearestStations.self),
                 getUserLocation: resolver.resolve(type: GetUserLocation.self),
+                getCity: resolver.resolve(type: GetCity.self),
                 showRoute: resolver.resolve(type: ShowRoute.self)
             )
         }

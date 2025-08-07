@@ -206,8 +206,8 @@
             filePath = "StationFinder/Sources/StationFinderModuleConfiguration/StationFinderModuleConfiguration.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "registerFactories(in:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -289,6 +289,38 @@
             startingLineNumber = "15"
             endingLineNumber = "15"
             landmarkName = "showRoute(from:to:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E6FE0E7-8912-4A27-B57C-9B088C9213EA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationMap/ViewModel/NearestStationMapViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "setInitialPosition()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "579D1833-42F3-4CD3-8C8A-152F9F9D62CB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "StationFinder/Sources/StationFinderPresentation/NearestStationMap/ViewModel/NearestStationMapViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "setInitialPosition()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

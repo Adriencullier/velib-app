@@ -69,11 +69,7 @@ public final class NearestStationMapViewModel {
     
     func onEnterForeground() {
         Task {
-            do {
-                try await self.onRefresh()
-            } catch {
-                print("Failed to refresh nearest stations: \(error.localizedDescription)")
-            }
+            await self.onRefresh()
         }
     }
     
@@ -92,20 +88,20 @@ public final class NearestStationMapViewModel {
         }
     }
     
-    func onRefresh() async throws {
+    func onRefresh() async {
+        await self.initializeMap()
         self.fetchNearesStations()
     }
     
     func onTask() async {
-        Task {
-            await self.initializeMap()
-            self.fetchNearesStations()
-        }
+        await self.onRefresh()
     }
     
     func onFetchButtonPressed() {
-        self.fetchNearesStations()
-        self.lastLocationRefresh = self.currentLocation
+        Task {
+            await self.onRefresh()
+            self.lastLocationRefresh = self.currentLocation
+        }
     }
     
     private func observeUserLocation() async {
@@ -125,15 +121,23 @@ public final class NearestStationMapViewModel {
     }
     
     private func initializeMap() async {
-        if let userLocation = self.userLocation {
+        if let userLocation = self.currentLocation {
             let city = await self.getCity.execute(
-                userLocation: userLocation
+                userLocation: Location(
+                    latitude: userLocation.latitude,
+                    longitude: userLocation.longitude
+                )
             )
             if self.city != city {
                 self.city = city
             }
-            self.veloName = city.veloName
+        } else {
+            self.currentLocation = CLLocationCoordinate2D(
+                latitude: self.city.centerLocation.latitude,
+                longitude: self.city.centerLocation.longitude
+            )
         }
+        self.veloName = city.veloName
     }
     
    

@@ -1,3 +1,3 @@
 public protocol GetUserLocationRepository: Actor {
-    func getUserLocation() async throws -> Location
+    func getUserLocation() throws -> AsyncStream<Location?>
 }

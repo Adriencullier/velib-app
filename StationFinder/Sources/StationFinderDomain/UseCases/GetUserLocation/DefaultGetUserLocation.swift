@@ -5,7 +5,7 @@ public actor DefaultGetUserLocation: GetUserLocation, HasDependencies {
     
     public init() {}
     
-    public func execute() async throws -> Location {
+    public func execute() async throws -> AsyncStream<Location?> {
         guard let getUserLocationRepository = self.getUserLocationRepository else {
             fatalError("GetUserLocationRepository is not set")
         }

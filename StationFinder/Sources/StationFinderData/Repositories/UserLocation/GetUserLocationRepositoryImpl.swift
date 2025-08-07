@@ -3,20 +3,31 @@ import DependencyInjection
 
 public actor GetUserLocationRepositoryImpl: GetUserLocationRepository, HasDependencies {
     private weak var userLocationDataSource: UserLocationDataSource?
+    private var continuation: AsyncStream<Location?>.Continuation?
     
     public init() {}
     
-    public func getUserLocation() async throws -> Location {
+    public func getUserLocation() throws -> AsyncStream<Location?> {
         guard let userLocationDataSource = userLocationDataSource else {
             fatalError("UserLocationDataSource is not set. Call setDependencies before using this method.")
         }
-        guard let userLocationDTO = try await userLocationDataSource.fetchUserLocation() else {
-            throw GetUserLocationRepositoryError.userLocationNotAvailable
+        let asyncStream = AsyncStream<Location?> { continuation in
+            self.continuation = continuation
         }
-        return Location(
-            latitude: userLocationDTO.latitude,
-            longitude: userLocationDTO.longitude
-        )
+        Task {
+            for await locDTO in try await userLocationDataSource.fetchUserLocation() {
+                if let locDTO = locDTO {
+                    let location = Location(
+                        latitude: locDTO.latitude,
+                        longitude: locDTO.longitude
+                    )
+                    self.continuation?.yield(location)
+                } else {
+                    self.continuation?.yield(nil)
+                }
+            }
+        }
+        return asyncStream
     }
     
     public func setDependencies(_ userLocationDataSource: UserLocationDataSource) {

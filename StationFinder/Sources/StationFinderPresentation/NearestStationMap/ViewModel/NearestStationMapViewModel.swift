@@ -1,5 +1,6 @@
 import SwiftUI
 import MapKit
+import Utilities
 import StationFinderDomain
 
 @Observable
@@ -10,18 +11,30 @@ public final class NearestStationMapViewModel {
     private unowned let getCity: GetCity
     private unowned let showRoute: ShowRoute
 
-    var position: MapCameraPosition = .camera(.init(.init()))
+    var position: MapCameraPosition = .userLocation(
+        fallback: .camera(
+            .init(
+                centerCoordinate: CLLocationCoordinate2D(
+                    latitude: City.defaultCity.centerLocation.latitude,
+                    longitude: City.defaultCity.centerLocation.longitude
+                ),
+                distance: 3000
+            )
+        )
+    )
+     
+    var shouldPresentFetchButton: Bool = false
     
     private(set) var stations: [MapStationModel] = []
-    private(set) var bounds: MapCameraBounds?
     private(set) var veloName: String = "Vélos"
     
     private var fetchStationsTask: Task<Void, Never>? = nil
-    private var currentLocation: CLLocationCoordinate2D? = nil
-    private var city: City = .defaultCity
     
-    private let minimumDistance: CLLocationDistance = 500
-        
+    private var currentLocation: CLLocationCoordinate2D? = nil
+    private var lastLocationRefresh: CLLocationCoordinate2D? = nil
+    private var city: City = .defaultCity
+    private var userLocation: Location? = nil
+            
     public init(getNearestStations: GetNearestStations,
                 getUserLocation: GetUserLocation,
                 getCity: GetCity,
@@ -32,66 +45,98 @@ public final class NearestStationMapViewModel {
         self.showRoute = showRoute
         
         Task {
-            let initialUserLocation = try? await self.getUserLocation.execute()
-            let city = await self.getCity.execute(userLocation: initialUserLocation)
-
-            self.city = city
-            self.veloName = city.veloName
-            self.setInitialPosition(for: initialUserLocation, city: city)
-            self.setBounds(city: city)
+            await self.observeUserLocation()
         }
     }
     
     func onPositionChange(_ coordinates: CLLocationCoordinate2D) {
-        self.currentLocation = coordinates
-        self.fetchNearesStations()
+        Task {
+            guard let _ = self.currentLocation,
+                  let lastLocationRefresh = self.lastLocationRefresh else {
+                return
+            }
+            self.currentLocation = coordinates
+            if DistanceCalculator.calculateDistance(
+                startLatitude: lastLocationRefresh.latitude,
+                startLongitude: lastLocationRefresh.longitude,
+                destinationLatitude: coordinates.latitude,
+                destinationLongitude: coordinates.longitude
+            ) > 1000 {
+                self.shouldPresentFetchButton = true
+            }
+        }
     }
     
     func onEnterForeground() {
-        self.fetchNearesStations()
+        Task {
+            do {
+                try await self.onRefresh()
+            } catch {
+                print("Failed to refresh nearest stations: \(error.localizedDescription)")
+            }
+        }
     }
     
-    private func setInitialPosition(for userLocation: Location?, city: City) {
-        if let userLocation = userLocation {
-            self.position = .camera(
-                MapCamera(
-                    centerCoordinate: .init(
-                        latitude: userLocation.latitude,
-                        longitude: userLocation.longitude
-                    ),
-                    distance: 3000
-                )
-            )
-        } else {
-            self.position = .camera(
-                MapCamera(
-                    centerCoordinate: .init(
-                        latitude: city.centerLocation.latitude,
-                        longitude: city.centerLocation.longitude
-                    ),
-                    distance: 3000
+    func onRoutePressed(_ station: MapStationModel) {
+        Task {
+            guard let userLocation = self.userLocation else {
+                return
+            }
+            try await self.showRoute.execute(
+                from: userLocation,
+                to: Location(
+                    latitude: station.latitude,
+                    longitude: station.longitude
                 )
             )
         }
     }
     
-    private func setBounds(city: City) {
-        self.bounds = MapCameraBounds(
-            centerCoordinateBounds: MKCoordinateRegion(
-                center: CLLocationCoordinate2D(
-                    latitude: city.centerLocation.latitude,
-                    longitude: city.centerLocation.longitude
-                ),
-                span: MKCoordinateSpan(
-                    latitudeDelta: 0.3,
-                    longitudeDelta: 0.3
-                )
-            ),
-            minimumDistance: self.minimumDistance,
-            maximumDistance: Double(city.radius)
-        )
+    func onRefresh() async throws {
+        self.fetchNearesStations()
     }
     
+    func onTask() async {
+        Task {
+            await self.initializeMap()
+            self.fetchNearesStations()
+        }
+    }
+    
+    func onFetchButtonPressed() {
+        self.fetchNearesStations()
+        self.lastLocationRefresh = self.currentLocation
+    }
+    
+    private func observeUserLocation() async {
+        do {
+            for await location in try await self.getUserLocation.execute() {
+                self.userLocation = location
+                if let userLocation = location, self.currentLocation == nil {
+                    self.currentLocation = CLLocationCoordinate2D(
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude
+                    )
+                }
+            }
+        } catch {
+            print("Failed to fetch user location: \(error.localizedDescription)")
+        }
+    }
+    
+    private func initializeMap() async {
+        if let userLocation = self.userLocation {
+            let city = await self.getCity.execute(
+                userLocation: userLocation
+            )
+            if self.city != city {
+                self.city = city
+            }
+            self.veloName = city.veloName
+        }
+    }
+    
+   
     private func fetchNearesStations() {
         guard let coordinates = self.currentLocation else { return }
         self.fetchStationsTask?.cancel()
@@ -114,29 +159,14 @@ public final class NearestStationMapViewModel {
                             longitude: station.longitude,
                             latitude: station.latitude
                         )
-                    })
+                    }
+                )
+                self.shouldPresentFetchButton = false
+                self.lastLocationRefresh = self.currentLocation
             } catch {
+                self.fetchStationsTask?.cancel()
                 print(error.localizedDescription)
             }
         }
-    }
-    
-    func onRoutePressed(_ station: MapStationModel) {
-        Task {
-            guard let userLocation = try? await self.getUserLocation.execute() else {
-                return
-            }
-            try await self.showRoute.execute(
-                from: userLocation,
-                to: Location(
-                    latitude: station.latitude,
-                    longitude: station.longitude
-                )
-            )
-        }
-    }
-    
-    func onRefresh() async throws {
-        self.fetchNearesStations()
     }
 }

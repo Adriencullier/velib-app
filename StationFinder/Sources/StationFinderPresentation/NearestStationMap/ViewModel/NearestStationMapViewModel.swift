@@ -138,6 +138,7 @@ public final class NearestStationMapViewModel {
             )
         }
         self.veloName = city.veloName
+        self.fetchNearesStations()
     }
     
    

@@ -4,7 +4,6 @@ import StationFinderDomain
 import StationFinderData
 import StationFinderPresentation
 
-
 public struct StationFinderModuleConfiguration: ModuleConfiguring {
     public static func registerDependencies(in registery: Registry) async {
         await registery.register(

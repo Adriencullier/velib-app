@@ -2,7 +2,7 @@ public enum City: CaseIterable, Sendable {
     case paris
     case lille
     
-    public static let defaultCity: City = .lille
+    public static let defaultCity: City = .paris
     
     public var centerLocation: Location {
         switch self {

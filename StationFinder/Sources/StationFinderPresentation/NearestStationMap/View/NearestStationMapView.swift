@@ -10,7 +10,6 @@ struct NearestStationMapView: View {
     
     @State private var mapScale: Double = 0
     @State private var selectedStation: MapStationModel?
-    @State private var id: UUID = UUID()
     
     init(viewModel: NearestStationMapViewModel) {
         self.viewModel = viewModel
@@ -47,7 +46,7 @@ struct NearestStationMapView: View {
                                     "Refresh",
                                     systemImage: "arrow.counterclockwise") {
                                         Task {
-                                            try await self.viewModel.onRefresh()
+                                            await self.viewModel.onRefresh()
                                         }
                                     }
                             }
@@ -72,33 +71,31 @@ struct NearestStationMapView: View {
     }
     
     private var mapView: some View {
-        Map(
-            position: self.$viewModel.position
-        ) {
-            ForEach(self.viewModel.stations) { station in
-                Annotation("",
-                           coordinate: .init(latitude: station.latitude, longitude: station.longitude)) {
-                    StationAnnotationView(
-                        viewModel: StationAnnotationViewModel(
-                            station: station,
-                            zoomLevel: mapScale,
-                            isSelected: selectedStation?.id == station.id,
-                            onNavigatePress: {
-                                self.viewModel.onRoutePressed(station)
+        Map(position: self.$viewModel.position) {
+                    ForEach(self.viewModel.stations) { station in
+                        Annotation("",
+                                   coordinate: .init(latitude: station.latitude, longitude: station.longitude)) {
+                            StationAnnotationView(
+                                viewModel: StationAnnotationViewModel(
+                                    station: station,
+                                    zoomLevel: mapScale,
+                                    isSelected: selectedStation?.id == station.id,
+                                    onNavigatePress: {
+                                        self.viewModel.onRoutePressed(station)
+                                    }
+                                )
+                            )
+                            .onTapGesture {
+                                if let selected = self.selectedStation, selected.id == station.id {
+                                    self.selectedStation = nil
+                                } else {
+                                    self.selectedStation = station
+                                }
                             }
-                        )
-                    )
-                    .onTapGesture {
-                        if let selected = self.selectedStation, selected.id == station.id {
-                            self.selectedStation = nil
-                        } else {
-                            self.selectedStation = station
                         }
                     }
+                    UserAnnotation()
                 }
-            }
-            UserAnnotation()
-        }
     }
     
     private func selectStation(_ station: MapStationModel?) {

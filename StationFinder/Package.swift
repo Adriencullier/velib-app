@@ -77,7 +77,10 @@ let package = Package(
         ),
         .testTarget(
             name: "StationFinderPresentationTests",
-            dependencies: ["StationFinderPresentation"]
+            dependencies: [
+                "StationFinderPresentation",
+                "StationFinderDomain"
+            ]
         ),
         // Module configuration
         .target(

@@ -1,3 +1,3 @@
 public protocol GetUserLocation: Actor {
-    func execute() async throws -> AsyncStream<Location?>
+    func execute() async -> Location?
 }

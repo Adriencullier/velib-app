@@ -24,13 +24,12 @@ public final class NearestStationMapViewModel {
     private(set) var shouldPresentFetchButton: Bool = false
     private(set) var stations: [MapStationModel] = []
         
-    private var fetchStationsTask: Task<Void, Never>? = nil
+    private var city: City = .defaultCity
+    private var lastLocationRefresh: CLLocationCoordinate2D? = nil
     private var currentLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(
         latitude: City.defaultCity.centerLocation.latitude,
         longitude: City.defaultCity.centerLocation.longitude
     )
-    private var lastLocationRefresh: CLLocationCoordinate2D? = nil
-    private var city: City = .defaultCity
     
     var veloName: String {
         self.city.veloName
@@ -89,7 +88,7 @@ public final class NearestStationMapViewModel {
     
     func onRefresh() async {
         await self.initializeMap()
-        self.fetchNearesStations()
+        await self.fetchNearesStations()
     }
     
     func onTask() async {
@@ -131,39 +130,33 @@ public final class NearestStationMapViewModel {
             )
         )
         self.city = city
-        self.fetchNearesStations()
+        await self.fetchNearesStations()
     }
-    
-   
-    private func fetchNearesStations() {
-        self.fetchStationsTask?.cancel()
-        self.fetchStationsTask = Task {
-            guard !Task.isCancelled else { return }
-            do {
-                let stations = try await self.getNearestStations.execute(
-                    longitude: self.currentLocation.longitude,
-                    latitude: self.currentLocation.latitude,
-                    city: self.city
-                )
-                self.stations = stations.map(
-                    { station in
-                        MapStationModel(
-                            id: station.id,
-                            name: station.name,
-                            availablePlaces: station.availablePlaces,
-                            availableMechanicalBikes: station.availableMechanicalBikes,
-                            availableEBikes: station.availableEBikes,
-                            longitude: station.longitude,
-                            latitude: station.latitude
-                        )
-                    }
-                )
-                self.shouldPresentFetchButton = false
-                self.lastLocationRefresh = self.currentLocation
-            } catch {
-                self.fetchStationsTask?.cancel()
-                print(error.localizedDescription)
-            }
+       
+    private func fetchNearesStations() async {
+        do {
+            let stations = try await self.getNearestStations.execute(
+                longitude: self.currentLocation.longitude,
+                latitude: self.currentLocation.latitude,
+                city: self.city
+            )
+            self.stations = stations.map(
+                { station in
+                    MapStationModel(
+                        id: station.id,
+                        name: station.name,
+                        availablePlaces: station.availablePlaces,
+                        availableMechanicalBikes: station.availableMechanicalBikes,
+                        availableEBikes: station.availableEBikes,
+                        longitude: station.longitude,
+                        latitude: station.latitude
+                    )
+                }
+            )
+            self.shouldPresentFetchButton = false
+            self.lastLocationRefresh = self.currentLocation
+        } catch {
+            print(error.localizedDescription)
         }
     }
 }

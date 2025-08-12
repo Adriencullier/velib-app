@@ -1,4 +1,4 @@
-public struct Location: Sendable {
+public struct Location: Sendable, Equatable {
     public let latitude: Double
     public let longitude: Double
     

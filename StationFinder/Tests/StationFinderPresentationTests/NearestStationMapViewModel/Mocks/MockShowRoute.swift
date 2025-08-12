@@ -1,13 +1,13 @@
 import StationFinderDomain
 
 actor MockShowRoute: ShowRoute {
-    var executeCallCount = 0
-    var error: Error?
+    var executeHasBeenCalled: Bool = false
+    var startLocation: Location?
+    var destinationLocation: Location?
     
     func execute(from start: Location, to destination: Location) throws {
-        executeCallCount += 1
-        if let error = error {
-            throw error
-        }
+        self.executeHasBeenCalled = true
+        self.startLocation = start
+        self.destinationLocation = destination
     }
 }

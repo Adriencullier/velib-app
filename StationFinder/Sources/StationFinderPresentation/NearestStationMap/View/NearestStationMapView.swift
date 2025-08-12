@@ -85,7 +85,9 @@ struct NearestStationMapView: View {
                                     zoomLevel: mapScale,
                                     isSelected: selectedStation?.id == station.id,
                                     onNavigatePress: {
-                                        self.viewModel.onRoutePressed(station)
+                                        Task {
+                                            await self.viewModel.onRoutePressed(station)
+                                        }
                                     }
                                 )
                             )

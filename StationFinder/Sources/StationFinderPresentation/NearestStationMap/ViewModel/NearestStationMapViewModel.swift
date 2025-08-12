@@ -64,23 +64,21 @@ public final class NearestStationMapViewModel {
         await self.onRefresh()
     }
     
-    func onRoutePressed(_ station: MapStationModel) {
-        Task {
-            guard let userLocation = await self.getUserLocation.execute() else {
-                print("No user location, can't show route")
-                return
-            }
-            do {
-                try await self.showRoute.execute(
-                    from: userLocation,
-                    to: Location(
-                        latitude: station.latitude,
-                        longitude: station.longitude
-                    )
+    func onRoutePressed(_ station: MapStationModel) async {
+        guard let userLocation = await self.getUserLocation.execute() else {
+            print("No user location, can't show route")
+            return
+        }
+        do {
+            try await self.showRoute.execute(
+                from: userLocation,
+                to: Location(
+                    latitude: station.latitude,
+                    longitude: station.longitude
                 )
-            } catch {
-                print(error.localizedDescription)
-            }
+            )
+        } catch {
+            print(error.localizedDescription)
         }
     }
     

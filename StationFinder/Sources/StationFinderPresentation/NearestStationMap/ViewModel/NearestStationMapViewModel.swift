@@ -23,7 +23,7 @@ public final class NearestStationMapViewModel {
     
     private(set) var shouldPresentFetchButton: Bool = false
     private(set) var stations: [MapStationModel] = []
-        
+    
     private var city: City = .defaultCity
     private var lastLocationRefresh: CLLocationCoordinate2D? = nil
     private var currentLocation: CLLocationCoordinate2D = CLLocationCoordinate2D(
@@ -34,7 +34,7 @@ public final class NearestStationMapViewModel {
     var veloName: String {
         self.city.veloName
     }
-            
+    
     public init(getNearestStations: GetNearestStations,
                 getUserLocation: GetUserLocation,
                 getCity: GetCity,
@@ -60,10 +60,8 @@ public final class NearestStationMapViewModel {
         }
     }
     
-    func onEnterForeground() {
-        Task {
-            await self.onRefresh()
-        }
+    func onEnterForeground() async {
+        await self.onRefresh()
     }
     
     func onRoutePressed(_ station: MapStationModel) {
@@ -87,7 +85,7 @@ public final class NearestStationMapViewModel {
     }
     
     func onRefresh() async {
-        await self.initializeMap()
+        await self.setCity()
         await self.fetchNearesStations()
     }
     
@@ -98,13 +96,6 @@ public final class NearestStationMapViewModel {
             longitude: self.city.centerLocation.longitude
         )
         await self.onRefresh()
-    }
-    
-    func onFetchButtonPressed() {
-        Task {
-            await self.onRefresh()
-            self.lastLocationRefresh = self.currentLocation
-        }
     }
     
     private func setUserLocation() async {
@@ -122,17 +113,15 @@ public final class NearestStationMapViewModel {
         )
     }
     
-    private func initializeMap() async {
-        let city = await self.getCity.execute(
+    private func setCity() async {
+        self.city = await self.getCity.execute(
             userLocation: Location(
                 latitude: self.currentLocation.latitude,
                 longitude: self.currentLocation.longitude
             )
         )
-        self.city = city
-        await self.fetchNearesStations()
     }
-       
+    
     private func fetchNearesStations() async {
         do {
             let stations = try await self.getNearestStations.execute(

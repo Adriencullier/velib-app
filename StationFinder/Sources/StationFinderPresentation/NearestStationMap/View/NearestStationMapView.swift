@@ -35,7 +35,9 @@ struct NearestStationMapView: View {
                 )
                 .onChange(of: scenePhase) { _, newPhase in
                     if newPhase == .active {
-                        self.viewModel.onEnterForeground()
+                        Task {
+                            await self.viewModel.onEnterForeground()
+                        }
                     }
                 }
                 .toolbar(
@@ -54,7 +56,9 @@ struct NearestStationMapView: View {
                 )
             if viewModel.shouldPresentFetchButton {
                 Button {
-                     self.viewModel.onFetchButtonPressed()
+                    Task {
+                        await self.viewModel.onRefresh()
+                    }
                 } label: {
                     Text("Rechercher dans cette zone")
                         .font(.callout)

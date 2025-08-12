@@ -1,9 +1,13 @@
 import StationFinderDomain
 
 actor MockGetCity: GetCity {
-    var cityToReturn: City = .defaultCity
+    private(set) var cityToReturn: City = .defaultCity
     
     func execute(userLocation: Location?) -> City {
         return cityToReturn
+    }
+    
+    func setCityToReturn(_ city: City) {
+        self.cityToReturn = city
     }
 }

@@ -88,7 +88,9 @@ public final class NearestStationMapViewModel {
     }
     
     func onTask() async {
-        await self.setUserLocation()
+        if let userLoc = await self.getUserLocation.execute() {
+            await self.setUserLocation(userLoc)
+        }
         self.currentLocation = self.position.camera?.centerCoordinate ?? CLLocationCoordinate2D(
             latitude: self.city.centerLocation.latitude,
             longitude: self.city.centerLocation.longitude
@@ -96,19 +98,29 @@ public final class NearestStationMapViewModel {
         await self.onRefresh()
     }
     
-    private func setUserLocation() async {
-        guard let userLoc = await self.getUserLocation.execute() else {
-            return
-        }
-        self.position = .camera(
-            .init(
-                centerCoordinate: CLLocationCoordinate2D(
-                    latitude: userLoc.latitude,
-                    longitude: userLoc.longitude
-                ),
-                distance: 3000
+    func onUserLocationButtonPressed() async {
+        if let userLoc = await self.getUserLocation.execute() {
+            await self.setUserLocation(userLoc)
+            self.currentLocation = CLLocationCoordinate2D(
+                latitude: userLoc.latitude,
+                longitude: userLoc.longitude
             )
-        )
+            await self.fetchNearesStations()
+        }
+    }
+    
+    private func setUserLocation(_ userLocation: Location) async {
+        withAnimation {
+            self.position = .camera(
+                .init(
+                    centerCoordinate: CLLocationCoordinate2D(
+                        latitude: userLocation.latitude,
+                        longitude: userLocation.longitude
+                    ),
+                    distance: 3000
+                )
+            )
+        }        
     }
     
     private func setCity() async {

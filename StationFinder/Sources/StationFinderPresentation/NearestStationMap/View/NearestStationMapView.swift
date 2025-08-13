@@ -22,7 +22,6 @@ struct NearestStationMapView: View {
                     await self.viewModel.onTask()
                 }
                 .mapControls({
-                    MapUserLocationButton()
                     MapCompass()
                 })
                 .onMapCameraChange { context in
@@ -70,6 +69,24 @@ struct NearestStationMapView: View {
                                 .foregroundStyle(.thickMaterial)
                         )
                 }
+            }
+            HStack {
+                Spacer()
+                Button {
+                    Task {
+                        await self.viewModel.onUserLocationButtonPressed()
+                    }
+                } label: {
+                    Image(systemName: "location")
+                        .foregroundStyle(.blue.gradient)
+                        .padding()
+                        .background(
+                            RoundedRectangle(cornerRadius: 8)
+                                .frame(height: 44)
+                                .foregroundStyle(.thickMaterial)
+                        )
+                }
+                .padding(.horizontal, 4)
             }
         }
     }

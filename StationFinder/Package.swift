@@ -72,7 +72,11 @@ let package = Package(
         .target(
             name: "StationFinderPresentation",
             dependencies: [
-                "StationFinderDomain"
+                "StationFinderDomain",
+                .product(
+                    name: "DesignSystem",
+                    package: "Shared"
+                ),
             ]
         ),
         .testTarget(

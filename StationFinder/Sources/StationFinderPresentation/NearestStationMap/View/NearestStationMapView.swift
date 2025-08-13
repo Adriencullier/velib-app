@@ -1,7 +1,7 @@
 import SwiftUI
 import StationFinderDomain
 import MapKit
-
+import DesignSystem
 
 struct NearestStationMapView: View {
     @Environment(\.scenePhase) private var scenePhase
@@ -43,22 +43,18 @@ struct NearestStationMapView: View {
                     content: {
                         ToolbarItem(
                             placement: .primaryAction) {
-                                Button(
-                                    "Refresh",
-                                    systemImage: "arrow.counterclockwise") {
-                                        Task {
-                                            await self.viewModel.onRefresh()
-                                        }
+                                DSButton {
+                                    Image(systemName: "arrow.counterclockwise")
+                                } action: {
+                                    Task {
+                                        await self.viewModel.onRefresh()
                                     }
+                                }
                             }
                     }
                 )
             if viewModel.shouldPresentFetchButton {
-                Button {
-                    Task {
-                        await self.viewModel.onRefresh()
-                    }
-                } label: {
+                DSButton {
                     Text("Rechercher dans cette zone")
                         .font(.callout)
                         .foregroundStyle(.blue.gradient)
@@ -68,15 +64,15 @@ struct NearestStationMapView: View {
                                 .frame(height: 44)
                                 .foregroundStyle(.thickMaterial)
                         )
+                } action: {
+                    Task {
+                        await self.viewModel.onRefresh()
+                    }
                 }
             }
             HStack {
                 Spacer()
-                Button {
-                    Task {
-                        await self.viewModel.onUserLocationButtonPressed()
-                    }
-                } label: {
+                DSButton {
                     Image(systemName: "location")
                         .foregroundStyle(.blue.gradient)
                         .padding()
@@ -85,6 +81,10 @@ struct NearestStationMapView: View {
                                 .frame(height: 44)
                                 .foregroundStyle(.thickMaterial)
                         )
+                } action: {
+                    Task {
+                        await self.viewModel.onUserLocationButtonPressed()
+                    }
                 }
                 .padding(.horizontal, 4)
             }
@@ -93,32 +93,32 @@ struct NearestStationMapView: View {
     
     private var mapView: some View {
         Map(position: self.$viewModel.position) {
-                    ForEach(self.viewModel.stations) { station in
-                        Annotation("",
-                                   coordinate: .init(latitude: station.latitude, longitude: station.longitude)) {
-                            StationAnnotationView(
-                                viewModel: StationAnnotationViewModel(
-                                    station: station,
-                                    zoomLevel: mapScale,
-                                    isSelected: selectedStation?.id == station.id,
-                                    onNavigatePress: {
-                                        Task {
-                                            await self.viewModel.onRoutePressed(station)
-                                        }
-                                    }
-                                )
-                            )
-                            .onTapGesture {
-                                if let selected = self.selectedStation, selected.id == station.id {
-                                    self.selectedStation = nil
-                                } else {
-                                    self.selectedStation = station
+            ForEach(self.viewModel.stations) { station in
+                Annotation("",
+                           coordinate: .init(latitude: station.latitude, longitude: station.longitude)) {
+                    StationAnnotationView(
+                        viewModel: StationAnnotationViewModel(
+                            station: station,
+                            zoomLevel: mapScale,
+                            isSelected: selectedStation?.id == station.id,
+                            onNavigatePress: {
+                                Task {
+                                    await self.viewModel.onRoutePressed(station)
                                 }
                             }
+                        )
+                    )
+                    .onTapGesture {
+                        if let selected = self.selectedStation, selected.id == station.id {
+                            self.selectedStation = nil
+                        } else {
+                            self.selectedStation = station
                         }
                     }
-                    UserAnnotation()
                 }
+            }
+            UserAnnotation()
+        }
     }
     
     private func selectStation(_ station: MapStationModel?) {

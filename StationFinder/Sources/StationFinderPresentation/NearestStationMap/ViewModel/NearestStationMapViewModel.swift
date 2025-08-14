@@ -105,7 +105,7 @@ public final class NearestStationMapViewModel {
                 latitude: userLoc.latitude,
                 longitude: userLoc.longitude
             )
-            await self.fetchNearesStations()
+            await self.onRefresh()
         }
     }
     

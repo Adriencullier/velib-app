@@ -12,7 +12,7 @@ public actor DefaultShowRoute: ShowRoute, HasDependencies {
         Task { @MainActor in
             try routeLauncherService.showRoute(
                 from: start,
-                to: destination,
+                to: destination
             )
         }
     }

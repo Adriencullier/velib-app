@@ -1,4 +1,4 @@
-// swift-tools-version: 6.1
+// swift-tools-version: 6.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -26,7 +26,7 @@ let package = Package(
         .library(
             name: "StationFinderModuleConfiguration",
             targets: ["StationFinderModuleConfiguration"]
-        ),
+        )
     ],
     dependencies: [
         .package(
@@ -43,7 +43,7 @@ let package = Package(
                 .product(
                     name: "CoreNetworking",
                     package: "Shared"
-                ),
+                )
             ]
         ),
         .testTarget(
@@ -61,7 +61,7 @@ let package = Package(
                 .product(
                     name: "DependencyInjection",
                     package: "Shared"
-                ),
+                )
             ]
         ),
         .testTarget(
@@ -76,7 +76,7 @@ let package = Package(
                 .product(
                     name: "DesignSystem",
                     package: "Shared"
-                ),
+                )
             ]
         ),
         .testTarget(
@@ -102,6 +102,6 @@ let package = Package(
         .testTarget(
             name: "StationFinderModuleConfigurationTests",
             dependencies: ["StationFinderModuleConfiguration"]
-        ),
+        )
     ]
 )
